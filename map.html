@@ -43,13 +43,42 @@
   #svgwrap{display:none;flex:1;overflow:auto;padding:12px;box-sizing:border-box}
   #svgwrap svg{width:100%;max-width:900px;height:auto;border:1px solid var(--line);background:#fafafa}
   .popup td{padding:1px 6px;font-size:12px;vertical-align:top}
-  @media (max-width:700px){#app{flex-direction:column}#side{width:100%;max-width:none;max-height:45%;border-right:0;border-bottom:1px solid var(--line)}}
+  #detail{display:none;background:#fff;border:2px solid var(--accent);border-radius:8px;padding:8px 10px;margin:0 0 8px;position:relative}
+  #detail.on{display:block}
+  #detail .close{position:absolute;right:6px;top:4px;border:none;background:#eee;border-radius:50%;width:26px;height:26px;cursor:pointer;font-size:14px}
+  #legendToggle{display:none}
+  .sheet-handle{display:none}
+  @media (min-width:1200px){#side{width:440px}}
+  /* --- スマホ: 地図を上に、一覧はボトムシート。吹き出しと凡例は地図を隠さない --- */
+  @media (max-width:700px){
+    #app{flex-direction:column}
+    #map{flex:1;min-height:0;order:1}
+    #side{order:2;width:100%;max-width:none;height:44%;max-height:44%;border-right:0;border-top:1px solid var(--line);padding:0 10px 10px;transition:height .2s;box-shadow:0 -2px 8px rgba(0,0,0,.08)}
+    #side.collapsed{height:52px;max-height:52px;overflow:hidden}
+    .sheet-handle{display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--panel);padding:8px 0 4px;z-index:2}
+    .sheet-handle .bar{width:40px;height:4px;border-radius:2px;background:#bbb;margin:0 auto}
+    .sheet-handle button{border:1px solid var(--line);background:#fff;border-radius:12px;padding:2px 10px;font-size:12px}
+    h1{font-size:14px;margin:4px 0}
+    .note{display:none}
+    .howto{margin:6px 0 4px}
+    .legend{display:none;bottom:12px;right:12px;left:auto;max-width:70vw;font-size:11px;line-height:1.5}
+    .legend.on{display:block}
+    #legendToggle{display:block;position:absolute;right:12px;bottom:12px;z-index:1001;border:1px solid #666;background:#fff;border-radius:14px;padding:4px 10px;font-size:12px;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+    .legend.on + #legendToggle{right:auto;left:12px}
+    .popup td:first-child{white-space:nowrap}
+    .site-label{font-size:10px;padding:0 4px}
+    .leaflet-popup{display:none}
+    .site{padding:6px 8px 6px 10px;margin:4px 0}
+    .kv{font-size:11px}
+  }
 </style>
 </head>
 <body>
 <div id="app">
   <div id="side">
+    <div class="sheet-handle"><span class="bar"></span><button type="button" id="sheetBtn">一覧を閉じる</button></div>
     <h1>候補地と農用地区域（青地）</h1>
+    <div id="detail"><button type="button" class="close" aria-label="閉じる">×</button><div id="detailBody"></div></div>
     <div class="note">
       <b style="color:var(--yochi-line)">濃いオレンジ＝白地農地（買い足しの本命）</b>：青地ではない農地。農地法の許可は必要だが、農振除外は不要。<br>
       紫＝市街地（用途地域内）／茶＝山林（森林地域）／灰＝その他（宅地・道路・河川・校地など）／濃い緑＝青地の農地（原則転用不可）／薄い緑＝青地扱いだが農地ではない土地。薄い緑の点線＝農業振興地域。円は半径500m・1km・2km。<br>
@@ -206,13 +235,32 @@
     const fitAll=()=>{ const pts=data.filter(visible).map(s=>[s['緯度'],s['経度']]); if(pts.length) map.fitBounds(L.latLngBounds(pts).pad(0.15)); };
     fitAll();
     let current=null;
+    const isMobile = ()=> window.matchMedia('(max-width:700px)').matches;
+    const side=document.getElementById('side'), detail=document.getElementById('detail'), detailBody=document.getElementById('detailBody');
+    const sheetBtn=document.getElementById('sheetBtn');
+    const setSheet=(collapsed)=>{ side.classList.toggle('collapsed',collapsed); sheetBtn.textContent=collapsed?'一覧を開く':'一覧を閉じる'; setTimeout(()=>map.invalidateSize(),250); };
+    sheetBtn.onclick=()=>setSheet(!side.classList.contains('collapsed'));
+    detail.querySelector('.close').onclick=()=>{ detail.classList.remove('on'); };
     select=(i,fly=true)=>{
       if(current!==null) map.removeLayer(layers[current]);
       current=i; layers[i].addTo(map);
       document.querySelectorAll('.site').forEach(e=>e.classList.toggle('active',e.dataset.i==i));
-      if(fly) map.setView([data[i]['緯度'],data[i]['経度']],13);
-      markers[i].openPopup();
+      const s=data[i];
+      if(isMobile()){
+        // スマホ: 吹き出しの代わりに、一覧の先頭に詳細を出す（地図を隠さない）
+        detailBody.innerHTML=`<b>【${s['エリア']}】${s['名称']}</b> <span class="pri ${s['優先度']}">優先度 ${s['優先度']}</span><div class="kv">${s['住所']}</div>`+infoTable(s);
+        detail.classList.add('on'); setSheet(false); side.scrollTop=0;
+        if(fly) map.setView([s['緯度'],s['経度']],13);
+      } else {
+        if(fly) map.setView([s['緯度'],s['経度']],13);
+        markers[i].openPopup();
+      }
     };
+    // スマホ: 地図を触ったら一覧を畳んで地図を広く見せる
+    map.on('dragstart',()=>{ if(isMobile() && !side.classList.contains('collapsed')) setSheet(true); });
+    // 広域表示のときはラベルを隠して重なりを防ぐ（スマホのみ）
+    const updLabels=()=>{ const hide=isMobile() && map.getZoom()<10; document.querySelectorAll('.site-label').forEach(e=>e.style.display=hide?'none':''); };
+    map.on('zoomend',updLabels); setTimeout(updLabels,300);
     applyFilter=()=>{
       data.forEach((s,i)=>{ const v=visible(s); v?markers[i].addTo(map):map.removeLayer(markers[i]);
         document.querySelector(`.site[data-i="${i}"]`).classList.toggle('hidden',!v); });
@@ -225,6 +273,9 @@
       +'<span class="sw" style="border:1px dashed #1a5fb4;border-radius:50%"></span>500m / 1km / 2km<br>'
       +'<span class="dot" style="background:#d32f2f"></span>優先度 高　<span class="dot" style="background:#f9a825"></span>中　<span class="dot" style="background:#757575"></span>低';
     document.getElementById('map').appendChild(lg);
+    const lt=document.createElement('button'); lt.type='button'; lt.id='legendToggle'; lt.textContent='凡例';
+    lt.onclick=()=>{ const on=lg.classList.toggle('on'); lt.textContent=on?'凡例を閉じる':'凡例'; };
+    document.getElementById('map').appendChild(lt);
   } else {
     // ---- フォールバック: Leaflet が読めないときは素のSVGで描く ----
     document.getElementById('map').style.display='none';

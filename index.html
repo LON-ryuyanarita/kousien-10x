@@ -12,7 +12,7 @@
 *{box-sizing:border-box}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:"Zen Kaku Gothic New","Hiragino Sans","Noto Sans JP",system-ui,sans-serif;line-height:1.75;font-size:15px}
-article{max-width:780px;margin:0 auto;background:var(--paper);padding:28px 20px 48px;border-left:1px solid var(--line);border-right:1px solid var(--line);min-height:100vh}
+article{max-width:1440px;margin:0 auto;background:var(--paper);padding:28px 40px 48px;border-left:1px solid var(--line);border-right:1px solid var(--line);min-height:100vh}
 header{border-bottom:2px solid var(--ink);padding-bottom:14px;margin-bottom:8px}
 h1{font-size:23px;line-height:1.4;margin:0 0 6px}
 .meta{color:var(--sub);font-size:13px;margin:0}
@@ -125,6 +125,18 @@ footer a{color:var(--acc);word-break:break-all}
 #tab-map .memo{font-size:13px;color:var(--sub);margin:8px 0 0}
 body.show-map article > *:not(header):not(#tab-map){display:none}
 body.show-map #tab-map{display:block}
+
+/* --- 1440px コンテナ向けの調整 --- */
+@media (min-width:1000px){
+  body{font-size:16px}
+  article > p, article > ul, article > ol, article > .lead, article > .box{max-width:1000px}
+  nav.toc ol{columns:2;column-gap:32px}
+  #tab-map iframe{height:calc(100vh - 170px);min-height:640px}
+}
+@media (max-width:700px){
+  article{padding:16px 12px 40px}
+  #tab-map iframe{height:calc(100vh - 150px);min-height:520px}
+}
 </style></head><body><article>
 <header>
 <h1>北北海道 スポーツアカデミー構想 検討資料</h1>
@@ -181,13 +193,42 @@ body.show-map #tab-map{display:block}
   #svgwrap{display:none;flex:1;overflow:auto;padding:12px;box-sizing:border-box}
   #svgwrap svg{width:100%;max-width:900px;height:auto;border:1px solid var(--line);background:#fafafa}
   .popup td{padding:1px 6px;font-size:12px;vertical-align:top}
-  @media (max-width:700px){#app{flex-direction:column}#side{width:100%;max-width:none;max-height:45%;border-right:0;border-bottom:1px solid var(--line)}}
+  #detail{display:none;background:#fff;border:2px solid var(--accent);border-radius:8px;padding:8px 10px;margin:0 0 8px;position:relative}
+  #detail.on{display:block}
+  #detail .close{position:absolute;right:6px;top:4px;border:none;background:#eee;border-radius:50%;width:26px;height:26px;cursor:pointer;font-size:14px}
+  #legendToggle{display:none}
+  .sheet-handle{display:none}
+  @media (min-width:1200px){#side{width:440px}}
+  /* --- スマホ: 地図を上に、一覧はボトムシート。吹き出しと凡例は地図を隠さない --- */
+  @media (max-width:700px){
+    #app{flex-direction:column}
+    #map{flex:1;min-height:0;order:1}
+    #side{order:2;width:100%;max-width:none;height:44%;max-height:44%;border-right:0;border-top:1px solid var(--line);padding:0 10px 10px;transition:height .2s;box-shadow:0 -2px 8px rgba(0,0,0,.08)}
+    #side.collapsed{height:52px;max-height:52px;overflow:hidden}
+    .sheet-handle{display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--panel);padding:8px 0 4px;z-index:2}
+    .sheet-handle .bar{width:40px;height:4px;border-radius:2px;background:#bbb;margin:0 auto}
+    .sheet-handle button{border:1px solid var(--line);background:#fff;border-radius:12px;padding:2px 10px;font-size:12px}
+    h1{font-size:14px;margin:4px 0}
+    .note{display:none}
+    .howto{margin:6px 0 4px}
+    .legend{display:none;bottom:12px;right:12px;left:auto;max-width:70vw;font-size:11px;line-height:1.5}
+    .legend.on{display:block}
+    #legendToggle{display:block;position:absolute;right:12px;bottom:12px;z-index:1001;border:1px solid #666;background:#fff;border-radius:14px;padding:4px 10px;font-size:12px;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+    .legend.on + #legendToggle{right:auto;left:12px}
+    .popup td:first-child{white-space:nowrap}
+    .site-label{font-size:10px;padding:0 4px}
+    .leaflet-popup{display:none}
+    .site{padding:6px 8px 6px 10px;margin:4px 0}
+    .kv{font-size:11px}
+  }
 &lt;/style&gt;
 &lt;/head&gt;
 &lt;body&gt;
 &lt;div id=&quot;app&quot;&gt;
   &lt;div id=&quot;side&quot;&gt;
+    &lt;div class=&quot;sheet-handle&quot;&gt;&lt;span class=&quot;bar&quot;&gt;&lt;/span&gt;&lt;button type=&quot;button&quot; id=&quot;sheetBtn&quot;&gt;一覧を閉じる&lt;/button&gt;&lt;/div&gt;
     &lt;h1&gt;候補地と農用地区域（青地）&lt;/h1&gt;
+    &lt;div id=&quot;detail&quot;&gt;&lt;button type=&quot;button&quot; class=&quot;close&quot; aria-label=&quot;閉じる&quot;&gt;×&lt;/button&gt;&lt;div id=&quot;detailBody&quot;&gt;&lt;/div&gt;&lt;/div&gt;
     &lt;div class=&quot;note&quot;&gt;
       &lt;b style=&quot;color:var(--yochi-line)&quot;&gt;濃いオレンジ＝白地農地（買い足しの本命）&lt;/b&gt;：青地ではない農地。農地法の許可は必要だが、農振除外は不要。&lt;br&gt;
       紫＝市街地（用途地域内）／茶＝山林（森林地域）／灰＝その他（宅地・道路・河川・校地など）／濃い緑＝青地の農地（原則転用不可）／薄い緑＝青地扱いだが農地ではない土地。薄い緑の点線＝農業振興地域。円は半径500m・1km・2km。&lt;br&gt;
@@ -344,13 +385,32 @@ body.show-map #tab-map{display:block}
     const fitAll=()=&gt;{ const pts=data.filter(visible).map(s=&gt;[s[&#x27;緯度&#x27;],s[&#x27;経度&#x27;]]); if(pts.length) map.fitBounds(L.latLngBounds(pts).pad(0.15)); };
     fitAll();
     let current=null;
+    const isMobile = ()=&gt; window.matchMedia(&#x27;(max-width:700px)&#x27;).matches;
+    const side=document.getElementById(&#x27;side&#x27;), detail=document.getElementById(&#x27;detail&#x27;), detailBody=document.getElementById(&#x27;detailBody&#x27;);
+    const sheetBtn=document.getElementById(&#x27;sheetBtn&#x27;);
+    const setSheet=(collapsed)=&gt;{ side.classList.toggle(&#x27;collapsed&#x27;,collapsed); sheetBtn.textContent=collapsed?&#x27;一覧を開く&#x27;:&#x27;一覧を閉じる&#x27;; setTimeout(()=&gt;map.invalidateSize(),250); };
+    sheetBtn.onclick=()=&gt;setSheet(!side.classList.contains(&#x27;collapsed&#x27;));
+    detail.querySelector(&#x27;.close&#x27;).onclick=()=&gt;{ detail.classList.remove(&#x27;on&#x27;); };
     select=(i,fly=true)=&gt;{
       if(current!==null) map.removeLayer(layers[current]);
       current=i; layers[i].addTo(map);
       document.querySelectorAll(&#x27;.site&#x27;).forEach(e=&gt;e.classList.toggle(&#x27;active&#x27;,e.dataset.i==i));
-      if(fly) map.setView([data[i][&#x27;緯度&#x27;],data[i][&#x27;経度&#x27;]],13);
-      markers[i].openPopup();
+      const s=data[i];
+      if(isMobile()){
+        // スマホ: 吹き出しの代わりに、一覧の先頭に詳細を出す（地図を隠さない）
+        detailBody.innerHTML=`&lt;b&gt;【${s[&#x27;エリア&#x27;]}】${s[&#x27;名称&#x27;]}&lt;/b&gt; &lt;span class=&quot;pri ${s[&#x27;優先度&#x27;]}&quot;&gt;優先度 ${s[&#x27;優先度&#x27;]}&lt;/span&gt;&lt;div class=&quot;kv&quot;&gt;${s[&#x27;住所&#x27;]}&lt;/div&gt;`+infoTable(s);
+        detail.classList.add(&#x27;on&#x27;); setSheet(false); side.scrollTop=0;
+        if(fly) map.setView([s[&#x27;緯度&#x27;],s[&#x27;経度&#x27;]],13);
+      } else {
+        if(fly) map.setView([s[&#x27;緯度&#x27;],s[&#x27;経度&#x27;]],13);
+        markers[i].openPopup();
+      }
     };
+    // スマホ: 地図を触ったら一覧を畳んで地図を広く見せる
+    map.on(&#x27;dragstart&#x27;,()=&gt;{ if(isMobile() &amp;&amp; !side.classList.contains(&#x27;collapsed&#x27;)) setSheet(true); });
+    // 広域表示のときはラベルを隠して重なりを防ぐ（スマホのみ）
+    const updLabels=()=&gt;{ const hide=isMobile() &amp;&amp; map.getZoom()&lt;10; document.querySelectorAll(&#x27;.site-label&#x27;).forEach(e=&gt;e.style.display=hide?&#x27;none&#x27;:&#x27;&#x27;); };
+    map.on(&#x27;zoomend&#x27;,updLabels); setTimeout(updLabels,300);
     applyFilter=()=&gt;{
       data.forEach((s,i)=&gt;{ const v=visible(s); v?markers[i].addTo(map):map.removeLayer(markers[i]);
         document.querySelector(`.site[data-i=&quot;${i}&quot;]`).classList.toggle(&#x27;hidden&#x27;,!v); });
@@ -363,6 +423,9 @@ body.show-map #tab-map{display:block}
       +&#x27;&lt;span class=&quot;sw&quot; style=&quot;border:1px dashed #1a5fb4;border-radius:50%&quot;&gt;&lt;/span&gt;500m / 1km / 2km&lt;br&gt;&#x27;
       +&#x27;&lt;span class=&quot;dot&quot; style=&quot;background:#d32f2f&quot;&gt;&lt;/span&gt;優先度 高　&lt;span class=&quot;dot&quot; style=&quot;background:#f9a825&quot;&gt;&lt;/span&gt;中　&lt;span class=&quot;dot&quot; style=&quot;background:#757575&quot;&gt;&lt;/span&gt;低&#x27;;
     document.getElementById(&#x27;map&#x27;).appendChild(lg);
+    const lt=document.createElement(&#x27;button&#x27;); lt.type=&#x27;button&#x27;; lt.id=&#x27;legendToggle&#x27;; lt.textContent=&#x27;凡例&#x27;;
+    lt.onclick=()=&gt;{ const on=lg.classList.toggle(&#x27;on&#x27;); lt.textContent=on?&#x27;凡例を閉じる&#x27;:&#x27;凡例&#x27;; };
+    document.getElementById(&#x27;map&#x27;).appendChild(lt);
   } else {
     // ---- フォールバック: Leaflet が読めないときは素のSVGで描く ----
     document.getElementById(&#x27;map&#x27;).style.display=&#x27;none&#x27;;
