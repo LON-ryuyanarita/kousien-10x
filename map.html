@@ -43,6 +43,9 @@
   #svgwrap{display:none;flex:1;overflow:auto;padding:12px;box-sizing:border-box}
   #svgwrap svg{width:100%;max-width:900px;height:auto;border:1px solid var(--line);background:#fafafa}
   .popup td{padding:1px 6px;font-size:12px;vertical-align:top}
+  .mini{margin:6px 0 4px;color:#333}
+  .more{border:1px solid var(--accent);background:var(--accent);color:#fff;border-radius:12px;padding:4px 12px;font-size:12px;cursor:pointer}
+  .site-label{cursor:pointer;pointer-events:auto}
   #detail{display:none;background:#fff;border:2px solid var(--accent);border-radius:8px;padding:8px 10px;margin:0 0 8px;position:relative}
   #detail.on{display:block}
   #detail .close{position:absolute;right:6px;top:4px;border:none;background:#eee;border-radius:50%;width:26px;height:26px;cursor:pointer;font-size:14px}
@@ -67,7 +70,8 @@
     .legend.on + #legendToggle{right:auto;left:12px}
     .popup td:first-child{white-space:nowrap}
     .site-label{font-size:10px;padding:0 4px}
-    .leaflet-popup{display:none}
+    .leaflet-popup-content{margin:10px 12px;font-size:12px;line-height:1.5}
+    .leaflet-popup-content-wrapper{max-width:78vw}
     .site{padding:6px 8px 6px 10px;margin:4px 0}
     .kv{font-size:11px}
   }
@@ -226,10 +230,14 @@
       }
       [500,1000,2000].forEach(r=>L.circle([s['緯度'],s['経度']],{radius:r,color:'#1a5fb4',weight:1,fill:false,dashArray:'2 4'}).addTo(g));
       layers.push(g);
+      // 吹き出し: PCは詳細表、スマホは地図を隠さない小型版（「詳細を見る」で下の一覧に全項目）
+      const head=`<b>【${s['エリア']}】${s['名称']}</b> <span class="pri ${s['優先度']}">優先度 ${s['優先度']}</span><br><span style="font-size:11px">${s['住所']}</span>`;
+      const compact=()=>{ const a=lu(s,1000)||{}; return head+`<div class="mini">白地農地 <b>${fmt(a['白地農地'],'ha')}</b>／青地率 <b>${fmt(s['1km内農用地率'],'%')}</b>／最寄り青地 <b>${fmt(s['最寄り農用地区域までの距離(m)'],'m')}</b>（1km内）</div><button type="button" class="more" onclick="window.__showDetail(${i})">詳細を見る ▸</button>`; };
       const m=L.circleMarker([s['緯度'],s['経度']],{radius:9,color:'#fff',weight:2,fillColor:PRI[s['優先度']]||PRI['低'],fillOpacity:1}).addTo(map)
-        .bindPopup(`<b>【${s['エリア']}】${s['名称']}</b> <span class="pri ${s['優先度']}">優先度 ${s['優先度']}</span><br><span style="font-size:11px">${s['住所']}</span>${infoTable(s)}`,{maxWidth:380})
-        .bindTooltip(`【${s['エリア']}】${s['名称']}`,{permanent:true,direction:'right',offset:[10,0],className:'site-label'});
-      m.on('click',()=>select(i,false));
+        .bindPopup(()=> isMobile()? compact() : head+infoTable(s), {maxWidth: 380, autoPanPaddingTopLeft:[10,10], autoPanPaddingBottomRight:[10,60]})
+        .bindTooltip(`【${s['エリア']}】${s['名称']}`,{permanent:true,direction:'right',offset:[10,0],className:'site-label',interactive:true});
+      m.on('click',()=>select(i,false,true));
+      m.getTooltip().on('click',()=>select(i,false,true));   // 学校名ラベルのクリックでも開く
       markers.push(m);
     });
     const fitAll=()=>{ const pts=data.filter(visible).map(s=>[s['緯度'],s['経度']]); if(pts.length) map.fitBounds(L.latLngBounds(pts).pad(0.15)); };
@@ -244,20 +252,21 @@
     const setSheet=(collapsed)=>{ side.classList.toggle('collapsed',collapsed); sheetBtn.textContent=collapsed?'一覧を開く':'一覧を閉じる'; setTimeout(()=>map.invalidateSize(),250); };
     sheetBtn.onclick=()=>setSheet(!side.classList.contains('collapsed'));
     detail.querySelector('.close').onclick=()=>{ detail.classList.remove('on'); };
-    select=(i,fly=true)=>{
+    const fillDetail=(i)=>{ const s=data[i]; detailBody.innerHTML=`<b>【${s['エリア']}】${s['名称']}</b> <span class="pri ${s['優先度']}">優先度 ${s['優先度']}</span><div class="kv">${s['住所']}</div>`+infoTable(s); detail.classList.add('on'); };
+    // 吹き出しの「詳細を見る」（スマホ）: 下の一覧を開いて全項目を表示
+    window.__showDetail=(i)=>{ fillDetail(i); setSheet(false); side.scrollTop=0; map.closePopup(); };
+    select=(i,fly=true,fromMap=false)=>{
       if(current!==null) map.removeLayer(layers[current]);
       current=i; layers[i].addTo(map);
       document.querySelectorAll('.site').forEach(e=>e.classList.toggle('active',e.dataset.i==i));
       const s=data[i];
+      if(fly) map.setView([s['緯度'],s['経度']],13);
       if(isMobile()){
-        // スマホ: 吹き出しの代わりに、一覧の先頭に詳細を出す（地図を隠さない）
-        detailBody.innerHTML=`<b>【${s['エリア']}】${s['名称']}</b> <span class="pri ${s['優先度']}">優先度 ${s['優先度']}</span><div class="kv">${s['住所']}</div>`+infoTable(s);
-        detail.classList.add('on'); setSheet(false); side.scrollTop=0;
-        if(fly) map.setView([s['緯度'],s['経度']],13);
-      } else {
-        if(fly) map.setView([s['緯度'],s['経度']],13);
-        markers[i].openPopup();
+        fillDetail(i);
+        if(fromMap){ setSheet(true); }            // 地図上でタップ → 小型の吹き出しを出し、一覧は畳んで地図を広く
+        else { setSheet(false); side.scrollTop=0; } // 一覧からタップ → 一覧の先頭に詳細
       }
+      markers[i].openPopup();
     };
     // スマホ: 地図を触ったら一覧を畳んで地図を広く見せる
     map.on('dragstart',()=>{ if(isMobile() && !side.classList.contains('collapsed')) setSheet(true); });

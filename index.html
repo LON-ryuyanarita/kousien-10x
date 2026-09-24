@@ -193,6 +193,9 @@ body.show-map #tab-map{display:block}
   #svgwrap{display:none;flex:1;overflow:auto;padding:12px;box-sizing:border-box}
   #svgwrap svg{width:100%;max-width:900px;height:auto;border:1px solid var(--line);background:#fafafa}
   .popup td{padding:1px 6px;font-size:12px;vertical-align:top}
+  .mini{margin:6px 0 4px;color:#333}
+  .more{border:1px solid var(--accent);background:var(--accent);color:#fff;border-radius:12px;padding:4px 12px;font-size:12px;cursor:pointer}
+  .site-label{cursor:pointer;pointer-events:auto}
   #detail{display:none;background:#fff;border:2px solid var(--accent);border-radius:8px;padding:8px 10px;margin:0 0 8px;position:relative}
   #detail.on{display:block}
   #detail .close{position:absolute;right:6px;top:4px;border:none;background:#eee;border-radius:50%;width:26px;height:26px;cursor:pointer;font-size:14px}
@@ -217,7 +220,8 @@ body.show-map #tab-map{display:block}
     .legend.on + #legendToggle{right:auto;left:12px}
     .popup td:first-child{white-space:nowrap}
     .site-label{font-size:10px;padding:0 4px}
-    .leaflet-popup{display:none}
+    .leaflet-popup-content{margin:10px 12px;font-size:12px;line-height:1.5}
+    .leaflet-popup-content-wrapper{max-width:78vw}
     .site{padding:6px 8px 6px 10px;margin:4px 0}
     .kv{font-size:11px}
   }
@@ -376,10 +380,14 @@ body.show-map #tab-map{display:block}
       }
       [500,1000,2000].forEach(r=&gt;L.circle([s[&#x27;緯度&#x27;],s[&#x27;経度&#x27;]],{radius:r,color:&#x27;#1a5fb4&#x27;,weight:1,fill:false,dashArray:&#x27;2 4&#x27;}).addTo(g));
       layers.push(g);
+      // 吹き出し: PCは詳細表、スマホは地図を隠さない小型版（「詳細を見る」で下の一覧に全項目）
+      const head=`&lt;b&gt;【${s[&#x27;エリア&#x27;]}】${s[&#x27;名称&#x27;]}&lt;/b&gt; &lt;span class=&quot;pri ${s[&#x27;優先度&#x27;]}&quot;&gt;優先度 ${s[&#x27;優先度&#x27;]}&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px&quot;&gt;${s[&#x27;住所&#x27;]}&lt;/span&gt;`;
+      const compact=()=&gt;{ const a=lu(s,1000)||{}; return head+`&lt;div class=&quot;mini&quot;&gt;白地農地 &lt;b&gt;${fmt(a[&#x27;白地農地&#x27;],&#x27;ha&#x27;)}&lt;/b&gt;／青地率 &lt;b&gt;${fmt(s[&#x27;1km内農用地率&#x27;],&#x27;%&#x27;)}&lt;/b&gt;／最寄り青地 &lt;b&gt;${fmt(s[&#x27;最寄り農用地区域までの距離(m)&#x27;],&#x27;m&#x27;)}&lt;/b&gt;（1km内）&lt;/div&gt;&lt;button type=&quot;button&quot; class=&quot;more&quot; onclick=&quot;window.__showDetail(${i})&quot;&gt;詳細を見る ▸&lt;/button&gt;`; };
       const m=L.circleMarker([s[&#x27;緯度&#x27;],s[&#x27;経度&#x27;]],{radius:9,color:&#x27;#fff&#x27;,weight:2,fillColor:PRI[s[&#x27;優先度&#x27;]]||PRI[&#x27;低&#x27;],fillOpacity:1}).addTo(map)
-        .bindPopup(`&lt;b&gt;【${s[&#x27;エリア&#x27;]}】${s[&#x27;名称&#x27;]}&lt;/b&gt; &lt;span class=&quot;pri ${s[&#x27;優先度&#x27;]}&quot;&gt;優先度 ${s[&#x27;優先度&#x27;]}&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px&quot;&gt;${s[&#x27;住所&#x27;]}&lt;/span&gt;${infoTable(s)}`,{maxWidth:380})
-        .bindTooltip(`【${s[&#x27;エリア&#x27;]}】${s[&#x27;名称&#x27;]}`,{permanent:true,direction:&#x27;right&#x27;,offset:[10,0],className:&#x27;site-label&#x27;});
-      m.on(&#x27;click&#x27;,()=&gt;select(i,false));
+        .bindPopup(()=&gt; isMobile()? compact() : head+infoTable(s), {maxWidth: 380, autoPanPaddingTopLeft:[10,10], autoPanPaddingBottomRight:[10,60]})
+        .bindTooltip(`【${s[&#x27;エリア&#x27;]}】${s[&#x27;名称&#x27;]}`,{permanent:true,direction:&#x27;right&#x27;,offset:[10,0],className:&#x27;site-label&#x27;,interactive:true});
+      m.on(&#x27;click&#x27;,()=&gt;select(i,false,true));
+      m.getTooltip().on(&#x27;click&#x27;,()=&gt;select(i,false,true));   // 学校名ラベルのクリックでも開く
       markers.push(m);
     });
     const fitAll=()=&gt;{ const pts=data.filter(visible).map(s=&gt;[s[&#x27;緯度&#x27;],s[&#x27;経度&#x27;]]); if(pts.length) map.fitBounds(L.latLngBounds(pts).pad(0.15)); };
@@ -394,20 +402,21 @@ body.show-map #tab-map{display:block}
     const setSheet=(collapsed)=&gt;{ side.classList.toggle(&#x27;collapsed&#x27;,collapsed); sheetBtn.textContent=collapsed?&#x27;一覧を開く&#x27;:&#x27;一覧を閉じる&#x27;; setTimeout(()=&gt;map.invalidateSize(),250); };
     sheetBtn.onclick=()=&gt;setSheet(!side.classList.contains(&#x27;collapsed&#x27;));
     detail.querySelector(&#x27;.close&#x27;).onclick=()=&gt;{ detail.classList.remove(&#x27;on&#x27;); };
-    select=(i,fly=true)=&gt;{
+    const fillDetail=(i)=&gt;{ const s=data[i]; detailBody.innerHTML=`&lt;b&gt;【${s[&#x27;エリア&#x27;]}】${s[&#x27;名称&#x27;]}&lt;/b&gt; &lt;span class=&quot;pri ${s[&#x27;優先度&#x27;]}&quot;&gt;優先度 ${s[&#x27;優先度&#x27;]}&lt;/span&gt;&lt;div class=&quot;kv&quot;&gt;${s[&#x27;住所&#x27;]}&lt;/div&gt;`+infoTable(s); detail.classList.add(&#x27;on&#x27;); };
+    // 吹き出しの「詳細を見る」（スマホ）: 下の一覧を開いて全項目を表示
+    window.__showDetail=(i)=&gt;{ fillDetail(i); setSheet(false); side.scrollTop=0; map.closePopup(); };
+    select=(i,fly=true,fromMap=false)=&gt;{
       if(current!==null) map.removeLayer(layers[current]);
       current=i; layers[i].addTo(map);
       document.querySelectorAll(&#x27;.site&#x27;).forEach(e=&gt;e.classList.toggle(&#x27;active&#x27;,e.dataset.i==i));
       const s=data[i];
+      if(fly) map.setView([s[&#x27;緯度&#x27;],s[&#x27;経度&#x27;]],13);
       if(isMobile()){
-        // スマホ: 吹き出しの代わりに、一覧の先頭に詳細を出す（地図を隠さない）
-        detailBody.innerHTML=`&lt;b&gt;【${s[&#x27;エリア&#x27;]}】${s[&#x27;名称&#x27;]}&lt;/b&gt; &lt;span class=&quot;pri ${s[&#x27;優先度&#x27;]}&quot;&gt;優先度 ${s[&#x27;優先度&#x27;]}&lt;/span&gt;&lt;div class=&quot;kv&quot;&gt;${s[&#x27;住所&#x27;]}&lt;/div&gt;`+infoTable(s);
-        detail.classList.add(&#x27;on&#x27;); setSheet(false); side.scrollTop=0;
-        if(fly) map.setView([s[&#x27;緯度&#x27;],s[&#x27;経度&#x27;]],13);
-      } else {
-        if(fly) map.setView([s[&#x27;緯度&#x27;],s[&#x27;経度&#x27;]],13);
-        markers[i].openPopup();
+        fillDetail(i);
+        if(fromMap){ setSheet(true); }            // 地図上でタップ → 小型の吹き出しを出し、一覧は畳んで地図を広く
+        else { setSheet(false); side.scrollTop=0; } // 一覧からタップ → 一覧の先頭に詳細
       }
+      markers[i].openPopup();
     };
     // スマホ: 地図を触ったら一覧を畳んで地図を広く見せる
     map.on(&#x27;dragstart&#x27;,()=&gt;{ if(isMobile() &amp;&amp; !side.classList.contains(&#x27;collapsed&#x27;)) setSheet(true); });
