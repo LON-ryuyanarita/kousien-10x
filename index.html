@@ -189,6 +189,20 @@ body.show-catalog article{background:#f5f5f7;border-color:transparent}
 .cat .num{background:var(--bg);border-radius:14px;padding:10px 10px 8px}
 .cat .num b{display:block;font-size:19px;letter-spacing:-.02em;line-height:1.1;white-space:nowrap}
 .cat .num small{display:block;color:var(--sub);font-size:11px;margin-top:4px;line-height:1.3}
+.cat .exp{background:var(--bg);border-radius:14px;padding:10px 12px 8px;margin-top:2px}
+.cat .exp-h{display:flex;justify-content:space-between;font-size:12px;color:var(--sub);margin-bottom:6px}
+.cat .exp-h span:first-child{font-weight:600;color:var(--ink)}
+.cat .bar{position:relative;height:12px;border-radius:6px;background:#e5e5ea;overflow:visible;display:flex}
+.cat .bar span{display:block;height:100%}
+.cat .bar span:first-child{border-radius:6px 0 0 6px}
+.cat .b-land{background:#1d1d1f}.cat .b-s1{background:#ff6d00}.cat .b-s2{background:#ffb74d}.cat .b-s3{background:#ffe0b2;border-top:1px solid #6d4c41;border-bottom:1px solid #6d4c41;box-sizing:border-box}
+.cat .imgmark{position:absolute;top:-4px;height:20px;border-left:2px dashed #1d1d1f;font-size:10px;color:var(--sub);padding-left:4px;white-space:nowrap;line-height:1;transform:translateY(-14px)}
+.cat .imgmark i{display:none}
+.cat .exp-rows{display:grid;gap:3px;margin-top:10px;font-size:12px;color:#3a3a3c}
+.cat .exp-rows div{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap}
+.cat .exp-rows i{display:inline-block;width:10px;height:10px;border-radius:3px;flex:none;position:relative;top:1px}
+.cat .exp-rows b{font-size:13px}
+.cat .exp-rows small{color:var(--sub);font-size:11px}
 .cat .acts{display:flex;gap:8px;margin-top:auto;padding-top:6px}
 .cat .acts button{flex:1;border:none;border-radius:999px;padding:10px 12px;font:inherit;font-size:14px;cursor:pointer}
 .cat .acts .gomap{background:var(--blue);color:#fff}
@@ -240,6 +254,16 @@ body.show-catalog article{background:#f5f5f7;border-color:transparent}
       <div class="num"><b>—</b><small>校舎の延床</small></div>
       <div class="num"><b>14ha</b><small>買い足せる農地<br>（白地・1km内）</small></div>
     </div>
+    <div class="exp">
+      <div class="exp-h"><span>どこまで広げられるか（半径1km内）</span><span class="exp-img">IMG＝243ha</span></div>
+      <div class="bar"><span class="b-land" style="width:43.5%"></span><span class="b-s1" style="width:4.7%"></span><span class="b-s2" style="width:0.0%"></span><span class="b-s3" style="width:51.8%"></span></div>
+      <div class="exp-rows">
+        <div><i class="b-land"></i>校地 132.0ha（東京ドーム約28個分）</div>
+        <div><i class="b-s1"></i>＋白地農地 → <b>約146ha</b><small>東京ドーム約31個分・IMGの60%（−97ha）</small></div>
+        <div><i class="b-s2"></i>＋その他 → <b>約146ha</b><small>東京ドーム約31個分・IMGの60%（−97ha）</small></div>
+        <div><i class="b-s3"></i>＋山林 → <b>約303ha</b><small>東京ドーム約65個分・IMGの125%（+60ha）</small></div>
+      </div>
+    </div>
     <div class="acts"><button type="button" class="gomap" data-id="shiranuka-golf">地図で見る</button><button type="button" class="more">詳しく</button></div>
     <details class="dt"><summary>詳細</summary>
       <table>
@@ -251,6 +275,8 @@ body.show-catalog article{background:#f5f5f7;border-color:transparent}
         
         <tr><td>施設メモ</td><td>ゴルフ場跡。クラブハウス等の建物情報は未確認</td></tr>
         <tr><td>周囲1kmの農地</td><td>青地率 3.3%／最寄りの青地まで 733m<br>白地農地 14ha・青地の農地 4.1ha・市街地 0.0ha・山林 185.5ha・その他 103.5ha</td></tr>
+        <tr><td>拡張シナリオ<br>（半径1km内）</td><td>校地 132.0ha<br>① ＋白地農地 → <b>約146ha</b>（東京ドーム約31個分・IMGの60%（−97ha））<br>② ＋その他 → <b>約146ha</b>（東京ドーム約31個分・IMGの60%（−97ha））<br>③ ＋山林 → <b>約303ha</b>（東京ドーム約65個分・IMGの125%（+60ha））</td></tr>
+        <tr><td>拡張シナリオ<br>（半径2km内）</td><td>校地 132.0ha<br>① ＋白地農地 → <b>約156ha</b>（東京ドーム約33個分・IMGの64%（−87ha））<br>② ＋その他 → <b>約316ha</b>（東京ドーム約67個分・IMGの130%（+73ha））<br>③ ＋山林 → <b>約1118ha</b>（東京ドーム約238個分・IMGの460%（+875ha））</td></tr>
         <tr><td>位置の精度</td><td>高（OpenStreetMap ゴルフ場ポリゴンの中心（国土地理院の地番検索とも0.3kmで整合））</td></tr>
       </table>
       <div class="src">写真：国土地理院 空中写真（2026/9/24作成）</div>
@@ -267,6 +293,16 @@ body.show-catalog article{background:#f5f5f7;border-color:transparent}
       <div class="num"><b>2,086㎡</b><small>校舎の延床</small></div>
       <div class="num"><b>32ha</b><small>買い足せる農地<br>（白地・1km内）</small></div>
     </div>
+    <div class="exp">
+      <div class="exp-h"><span>どこまで広げられるか（半径1km内）</span><span class="exp-img">IMG＝243ha</span></div>
+      <div class="bar"><span class="b-land" style="width:0.8%"></span><span class="b-s1" style="width:10.1%"></span><span class="b-s2" style="width:49.3%"></span><span class="b-s3" style="width:39.8%"></span></div>
+      <div class="exp-rows">
+        <div><i class="b-land"></i>校地 2.5ha（東京ドーム約0.5個分）</div>
+        <div><i class="b-s1"></i>＋白地農地 → <b>約34ha</b><small>東京ドーム約7個分・IMGの14%（−209ha）</small></div>
+        <div><i class="b-s2"></i>＋その他 → <b>約188ha</b><small>東京ドーム約40個分・IMGの77%（−55ha）</small></div>
+        <div><i class="b-s3"></i>＋山林 → <b>約312ha</b><small>東京ドーム約66個分・IMGの128%（+69ha）</small></div>
+      </div>
+    </div>
     <div class="acts"><button type="button" class="gomap" data-id="taki-nigori">地図で見る</button><button type="button" class="more">詳しく</button></div>
     <details class="dt"><summary>詳細</summary>
       <table>
@@ -278,6 +314,8 @@ body.show-catalog article{background:#f5f5f7;border-color:transparent}
         
         <tr><td>施設メモ</td><td>耐震性あり（LS値0.765）。体育館・グラウンドも活用可</td></tr>
         <tr><td>周囲1kmの農地</td><td>青地率 0.6%／最寄りの青地まで 841m<br>白地農地 32ha・青地の農地 0.7ha・市街地 0.0ha・山林 124.1ha・その他 156.2ha</td></tr>
+        <tr><td>拡張シナリオ<br>（半径1km内）</td><td>校地 2.5ha<br>① ＋白地農地 → <b>約34ha</b>（東京ドーム約7個分・IMGの14%（−209ha））<br>② ＋その他 → <b>約188ha</b>（東京ドーム約40個分・IMGの77%（−55ha））<br>③ ＋山林 → <b>約312ha</b>（東京ドーム約66個分・IMGの128%（+69ha））</td></tr>
+        <tr><td>拡張シナリオ<br>（半径2km内）</td><td>校地 2.5ha<br>① ＋白地農地 → <b>約50ha</b>（東京ドーム約11個分・IMGの21%（−193ha））<br>② ＋その他 → <b>約348ha</b>（東京ドーム約74個分・IMGの143%（+105ha））<br>③ ＋山林 → <b>約1148ha</b>（東京ドーム約244個分・IMGの472%（+905ha））</td></tr>
         <tr><td>位置の精度</td><td>高（Googleマップ「滝上町立濁川小学校」（OSMの同名地物と一致））</td></tr>
       </table>
       <div class="src">写真：文科省「みんなの廃校」募集一覧（2026/4/1）</div>
@@ -294,6 +332,16 @@ body.show-catalog article{background:#f5f5f7;border-color:transparent}
       <div class="num"><b>7,025㎡</b><small>校舎の延床</small></div>
       <div class="num"><b>52ha</b><small>買い足せる農地<br>（白地・1km内）</small></div>
     </div>
+    <div class="exp">
+      <div class="exp-h"><span>どこまで広げられるか（半径1km内）</span><span class="exp-img">IMG＝243ha</span></div>
+      <div class="bar"><span class="b-land" style="width:17.1%"></span><span class="b-s1" style="width:21.4%"></span><span class="b-s2" style="width:22.3%"></span><span class="b-s3" style="width:7.7%"></span><span class="imgmark" style="left:100.0%"><i></i>IMG 243ha</span></div>
+      <div class="exp-rows">
+        <div><i class="b-land"></i>校地 41.5ha（東京ドーム約9個分）</div>
+        <div><i class="b-s1"></i>＋白地農地 → <b>約94ha</b><small>東京ドーム約20個分・IMGの39%（−149ha）</small></div>
+        <div><i class="b-s2"></i>＋その他 → <b>約148ha</b><small>東京ドーム約31個分・IMGの61%（−95ha）</small></div>
+        <div><i class="b-s3"></i>＋山林 → <b>約166ha</b><small>東京ドーム約35個分・IMGの69%（−77ha）</small></div>
+      </div>
+    </div>
     <div class="acts"><button type="button" class="gomap" data-id="nayoro-meinou">地図で見る</button><button type="button" class="more">詳しく</button></div>
     <details class="dt"><summary>詳細</summary>
       <table>
@@ -305,6 +353,8 @@ body.show-catalog article{background:#f5f5f7;border-color:transparent}
         <tr><td>参考価格</td><td>土地・建物一式 約2.8億円（道の自己評価額）</td></tr>
         <tr><td>施設メモ</td><td>柔剣道場・寄宿舎・農業実習棟・畜舎など多数。新耐震</td></tr>
         <tr><td>周囲1kmの農地</td><td>青地率 0.6%／最寄りの青地まで 959m<br>白地農地 52ha・青地の農地 0.4ha・市街地 187.0ha・山林 18.6ha・その他 54.3ha</td></tr>
+        <tr><td>拡張シナリオ<br>（半径1km内）</td><td>校地 41.5ha<br>① ＋白地農地 → <b>約94ha</b>（東京ドーム約20個分・IMGの39%（−149ha））<br>② ＋その他 → <b>約148ha</b>（東京ドーム約31個分・IMGの61%（−95ha））<br>③ ＋山林 → <b>約166ha</b>（東京ドーム約35個分・IMGの69%（−77ha））</td></tr>
+        <tr><td>拡張シナリオ<br>（半径2km内）</td><td>校地 41.5ha<br>① ＋白地農地 → <b>約165ha</b>（東京ドーム約35個分・IMGの68%（−78ha））<br>② ＋その他 → <b>約379ha</b>（東京ドーム約81個分・IMGの156%（+136ha））<br>③ ＋山林 → <b>約509ha</b>（東京ドーム約108個分・IMGの210%（+266ha））</td></tr>
         <tr><td>位置の精度</td><td>高（OpenStreetMap「北海道名寄産業高等学校名農キャンパス」（国土地理院の地番検索とも0.3kmで整合））</td></tr>
       </table>
       <div class="src">写真：北海道教育委員会「校舎概要（名農）」</div>
@@ -321,6 +371,16 @@ body.show-catalog article{background:#f5f5f7;border-color:transparent}
       <div class="num"><b>—</b><small>校舎の延床</small></div>
       <div class="num"><b>41ha</b><small>買い足せる農地<br>（白地・1km内）</small></div>
     </div>
+    <div class="exp">
+      <div class="exp-h"><span>どこまで広げられるか（半径1km内）</span><span class="exp-img">IMG＝243ha</span></div>
+      <div class="bar"><span class="b-land" style="width:0.0%"></span><span class="b-s1" style="width:17.0%"></span><span class="b-s2" style="width:16.9%"></span><span class="b-s3" style="width:4.1%"></span><span class="imgmark" style="left:100.0%"><i></i>IMG 243ha</span></div>
+      <div class="exp-rows">
+        <div><i class="b-land"></i>校地の面積は未確認（0として計算）</div>
+        <div><i class="b-s1"></i>＋白地農地 → <b>約41ha</b><small>東京ドーム約9個分・IMGの17%（−202ha）</small></div>
+        <div><i class="b-s2"></i>＋その他 → <b>約82ha</b><small>東京ドーム約18個分・IMGの34%（−161ha）</small></div>
+        <div><i class="b-s3"></i>＋山林 → <b>約92ha</b><small>東京ドーム約20個分・IMGの38%（−151ha）</small></div>
+      </div>
+    </div>
     <div class="acts"><button type="button" class="gomap" data-id="biei-hs">地図で見る</button><button type="button" class="more">詳しく</button></div>
     <details class="dt"><summary>詳細</summary>
       <table>
@@ -332,6 +392,8 @@ body.show-catalog article{background:#f5f5f7;border-color:transparent}
         
         <tr><td>施設メモ</td><td>現役の道立高校。校地面積は道教委に要確認</td></tr>
         <tr><td>周囲1kmの農地</td><td>青地率 14.0%／最寄りの青地まで 529m<br>白地農地 41ha・青地の農地 35.7ha・市街地 177.2ha・山林 9.9ha・その他 41.1ha</td></tr>
+        <tr><td>拡張シナリオ<br>（半径1km内）</td><td>校地の面積が未確認のため、校地を0として計算<br>① ＋白地農地 → <b>約41ha</b>（東京ドーム約9個分・IMGの17%（−202ha））<br>② ＋その他 → <b>約82ha</b>（東京ドーム約18個分・IMGの34%（−161ha））<br>③ ＋山林 → <b>約92ha</b>（東京ドーム約20個分・IMGの38%（−151ha））</td></tr>
+        <tr><td>拡張シナリオ<br>（半径2km内）</td><td>校地の面積が未確認のため、校地を0として計算<br>① ＋白地農地 → <b>約94ha</b>（東京ドーム約20個分・IMGの39%（−149ha））<br>② ＋その他 → <b>約308ha</b>（東京ドーム約66個分・IMGの127%（+65ha））<br>③ ＋山林 → <b>約365ha</b>（東京ドーム約78個分・IMGの150%（+122ha））</td></tr>
         <tr><td>位置の精度</td><td>高（Googleマップ「北海道美瑛高等学校」（国土地理院の住所検索と一致））</td></tr>
       </table>
       <div class="src">写真：国土地理院 空中写真（2026/9/24作成）</div>
@@ -348,6 +410,16 @@ body.show-catalog article{background:#f5f5f7;border-color:transparent}
       <div class="num"><b>4,000㎡</b><small>校舎の延床</small></div>
       <div class="num"><b>9ha</b><small>買い足せる農地<br>（白地・1km内）</small></div>
     </div>
+    <div class="exp">
+      <div class="exp-h"><span>どこまで広げられるか（半径1km内）</span><span class="exp-img">IMG＝243ha</span></div>
+      <div class="bar"><span class="b-land" style="width:1.9%"></span><span class="b-s1" style="width:3.7%"></span><span class="b-s2" style="width:11.7%"></span><span class="b-s3" style="width:34.7%"></span><span class="imgmark" style="left:100.0%"><i></i>IMG 243ha</span></div>
+      <div class="exp-rows">
+        <div><i class="b-land"></i>校地 4.5ha（東京ドーム約1.0個分）</div>
+        <div><i class="b-s1"></i>＋白地農地 → <b>約14ha</b><small>東京ドーム約3個分・IMGの6%（−229ha）</small></div>
+        <div><i class="b-s2"></i>＋その他 → <b>約42ha</b><small>東京ドーム約9個分・IMGの17%（−201ha）</small></div>
+        <div><i class="b-s3"></i>＋山林 → <b>約126ha</b><small>東京ドーム約27個分・IMGの52%（−117ha）</small></div>
+      </div>
+    </div>
     <div class="acts"><button type="button" class="gomap" data-id="urahoro-hs">地図で見る</button><button type="button" class="more">詳しく</button></div>
     <details class="dt"><summary>詳細</summary>
       <table>
@@ -359,6 +431,8 @@ body.show-catalog article{background:#f5f5f7;border-color:transparent}
         <tr><td>参考価格</td><td>土地（貸付部分除く）・建物一式 約1.5億円（道の自己評価額）</td></tr>
         <tr><td>施設メモ</td><td>柔剣道場あり。新耐震</td></tr>
         <tr><td>周囲1kmの農地</td><td>青地率 40.6%／最寄りの青地まで 231m<br>白地農地 9ha・青地の農地 65.5ha・市街地 64.5ha・山林 84.2ha・その他 28.4ha</td></tr>
+        <tr><td>拡張シナリオ<br>（半径1km内）</td><td>校地 4.5ha<br>① ＋白地農地 → <b>約14ha</b>（東京ドーム約3個分・IMGの6%（−229ha））<br>② ＋その他 → <b>約42ha</b>（東京ドーム約9個分・IMGの17%（−201ha））<br>③ ＋山林 → <b>約126ha</b>（東京ドーム約27個分・IMGの52%（−117ha））</td></tr>
+        <tr><td>拡張シナリオ<br>（半径2km内）</td><td>校地 4.5ha<br>① ＋白地農地 → <b>約44ha</b>（東京ドーム約9個分・IMGの18%（−199ha））<br>② ＋その他 → <b>約140ha</b>（東京ドーム約30個分・IMGの57%（−103ha））<br>③ ＋山林 → <b>約793ha</b>（東京ドーム約169個分・IMGの326%（+550ha））</td></tr>
         <tr><td>位置の精度</td><td>高（Googleマップ「旧浦幌高校」）</td></tr>
       </table>
       <div class="src">写真：北海道教育委員会「校舎概要（浦幌高校）」</div>
@@ -375,6 +449,16 @@ body.show-catalog article{background:#f5f5f7;border-color:transparent}
       <div class="num"><b>1,036㎡</b><small>校舎の延床</small></div>
       <div class="num"><b>32ha</b><small>買い足せる農地<br>（白地・1km内）</small></div>
     </div>
+    <div class="exp">
+      <div class="exp-h"><span>どこまで広げられるか（半径1km内）</span><span class="exp-img">IMG＝243ha</span></div>
+      <div class="bar"><span class="b-land" style="width:0.7%"></span><span class="b-s1" style="width:13.0%"></span><span class="b-s2" style="width:9.3%"></span><span class="b-s3" style="width:10.9%"></span><span class="imgmark" style="left:100.0%"><i></i>IMG 243ha</span></div>
+      <div class="exp-rows">
+        <div><i class="b-land"></i>校地 1.7ha（東京ドーム約0.4個分）</div>
+        <div><i class="b-s1"></i>＋白地農地 → <b>約33ha</b><small>東京ドーム約7個分・IMGの14%（−210ha）</small></div>
+        <div><i class="b-s2"></i>＋その他 → <b>約56ha</b><small>東京ドーム約12個分・IMGの23%（−187ha）</small></div>
+        <div><i class="b-s3"></i>＋山林 → <b>約82ha</b><small>東京ドーム約18個分・IMGの34%（−161ha）</small></div>
+      </div>
+    </div>
     <div class="acts"><button type="button" class="gomap" data-id="shihoro-nitta">地図で見る</button><button type="button" class="more">詳しく</button></div>
     <details class="dt"><summary>詳細</summary>
       <table>
@@ -386,6 +470,8 @@ body.show-catalog article{background:#f5f5f7;border-color:transparent}
         
         <tr><td>施設メモ</td><td>新耐震。士幌町の利活用推進補助制度あり</td></tr>
         <tr><td>周囲1kmの農地</td><td>青地率 73.8%／最寄りの青地まで 81m<br>白地農地 32ha・青地の農地 187.0ha・市街地 0.0ha・山林 26.5ha・その他 24.4ha</td></tr>
+        <tr><td>拡張シナリオ<br>（半径1km内）</td><td>校地 1.7ha<br>① ＋白地農地 → <b>約33ha</b>（東京ドーム約7個分・IMGの14%（−210ha））<br>② ＋その他 → <b>約56ha</b>（東京ドーム約12個分・IMGの23%（−187ha））<br>③ ＋山林 → <b>約82ha</b>（東京ドーム約18個分・IMGの34%（−161ha））</td></tr>
+        <tr><td>拡張シナリオ<br>（半径2km内）</td><td>校地 1.7ha<br>① ＋白地農地 → <b>約104ha</b>（東京ドーム約22個分・IMGの43%（−139ha））<br>② ＋その他 → <b>約211ha</b>（東京ドーム約45個分・IMGの87%（−32ha））<br>③ ＋山林 → <b>約333ha</b>（東京ドーム約71個分・IMGの137%（+90ha））</td></tr>
         <tr><td>位置の精度</td><td>高（OpenStreetMap 建物「旧士幌町立新田小学校」）</td></tr>
       </table>
       <div class="src">写真：文科省「みんなの廃校」募集一覧（2026/4/1）</div>
@@ -402,6 +488,16 @@ body.show-catalog article{background:#f5f5f7;border-color:transparent}
       <div class="num"><b>1,100㎡</b><small>校舎の延床</small></div>
       <div class="num"><b>34ha</b><small>買い足せる農地<br>（白地・1km内）</small></div>
     </div>
+    <div class="exp">
+      <div class="exp-h"><span>どこまで広げられるか（半径1km内）</span><span class="exp-img">IMG＝243ha</span></div>
+      <div class="bar"><span class="b-land" style="width:0.6%"></span><span class="b-s1" style="width:14.0%"></span><span class="b-s2" style="width:9.3%"></span><span class="b-s3" style="width:40.0%"></span><span class="imgmark" style="left:100.0%"><i></i>IMG 243ha</span></div>
+      <div class="exp-rows">
+        <div><i class="b-land"></i>校地 1.4ha（東京ドーム約0.3個分）</div>
+        <div><i class="b-s1"></i>＋白地農地 → <b>約35ha</b><small>東京ドーム約8個分・IMGの15%（−208ha）</small></div>
+        <div><i class="b-s2"></i>＋その他 → <b>約58ha</b><small>東京ドーム約12個分・IMGの24%（−185ha）</small></div>
+        <div><i class="b-s3"></i>＋山林 → <b>約155ha</b><small>東京ドーム約33個分・IMGの64%（−88ha）</small></div>
+      </div>
+    </div>
     <div class="acts"><button type="button" class="gomap" data-id="shihoro-shimoorobe">地図で見る</button><button type="button" class="more">詳しく</button></div>
     <details class="dt"><summary>詳細</summary>
       <table>
@@ -413,6 +509,8 @@ body.show-catalog article{background:#f5f5f7;border-color:transparent}
         
         <tr><td>施設メモ</td><td>新耐震。士幌町の利活用推進補助制度あり</td></tr>
         <tr><td>周囲1kmの農地</td><td>青地率 50.6%／最寄りの青地まで 0m<br>白地農地 34ha・青地の農地 84.7ha・市街地 0.0ha・山林 97.1ha・その他 24.0ha</td></tr>
+        <tr><td>拡張シナリオ<br>（半径1km内）</td><td>校地 1.4ha<br>① ＋白地農地 → <b>約35ha</b>（東京ドーム約8個分・IMGの15%（−208ha））<br>② ＋その他 → <b>約58ha</b>（東京ドーム約12個分・IMGの24%（−185ha））<br>③ ＋山林 → <b>約155ha</b>（東京ドーム約33個分・IMGの64%（−88ha））</td></tr>
+        <tr><td>拡張シナリオ<br>（半径2km内）</td><td>校地 1.4ha<br>① ＋白地農地 → <b>約104ha</b>（東京ドーム約22個分・IMGの43%（−139ha））<br>② ＋その他 → <b>約198ha</b>（東京ドーム約42個分・IMGの81%（−46ha））<br>③ ＋山林 → <b>約625ha</b>（東京ドーム約133個分・IMGの257%（+382ha））</td></tr>
         <tr><td>位置の精度</td><td>高（OpenStreetMap「士幌町下居辺小学校」）</td></tr>
       </table>
       <div class="src">写真：文科省「みんなの廃校」募集一覧（2026/4/1）</div>
@@ -429,6 +527,16 @@ body.show-catalog article{background:#f5f5f7;border-color:transparent}
       <div class="num"><b>1,920㎡</b><small>校舎の延床</small></div>
       <div class="num"><b>8ha</b><small>買い足せる農地<br>（白地・1km内）</small></div>
     </div>
+    <div class="exp">
+      <div class="exp-h"><span>どこまで広げられるか（半径1km内）</span><span class="exp-img">IMG＝243ha</span></div>
+      <div class="bar"><span class="b-land" style="width:0.5%"></span><span class="b-s1" style="width:3.1%"></span><span class="b-s2" style="width:24.3%"></span><span class="b-s3" style="width:13.8%"></span><span class="imgmark" style="left:100.0%"><i></i>IMG 243ha</span></div>
+      <div class="exp-rows">
+        <div><i class="b-land"></i>校地 1.2ha（東京ドーム約0.3個分）</div>
+        <div><i class="b-s1"></i>＋白地農地 → <b>約9ha</b><small>東京ドーム約2個分・IMGの4%（−234ha）</small></div>
+        <div><i class="b-s2"></i>＋その他 → <b>約68ha</b><small>東京ドーム約14個分・IMGの28%（−175ha）</small></div>
+        <div><i class="b-s3"></i>＋山林 → <b>約101ha</b><small>東京ドーム約22個分・IMGの42%（−142ha）</small></div>
+      </div>
+    </div>
     <div class="acts"><button type="button" class="gomap" data-id="honbetsu-senbiri">地図で見る</button><button type="button" class="more">詳しく</button></div>
     <details class="dt"><summary>詳細</summary>
       <table>
@@ -440,6 +548,8 @@ body.show-catalog article{background:#f5f5f7;border-color:transparent}
         
         <tr><td>施設メモ</td><td>校舎は旧耐震（耐震性あり）・屋体は新耐震</td></tr>
         <tr><td>周囲1kmの農地</td><td>青地率 67.7%／最寄りの青地まで 119m<br>白地農地 8ha・青地の農地 145.7ha・市街地 0.0ha・山林 33.6ha・その他 60.2ha</td></tr>
+        <tr><td>拡張シナリオ<br>（半径1km内）</td><td>校地 1.2ha<br>① ＋白地農地 → <b>約9ha</b>（東京ドーム約2個分・IMGの4%（−234ha））<br>② ＋その他 → <b>約68ha</b>（東京ドーム約14個分・IMGの28%（−175ha））<br>③ ＋山林 → <b>約101ha</b>（東京ドーム約22個分・IMGの42%（−142ha））</td></tr>
+        <tr><td>拡張シナリオ<br>（半径2km内）</td><td>校地 1.2ha<br>① ＋白地農地 → <b>約93ha</b>（東京ドーム約20個分・IMGの38%（−150ha））<br>② ＋その他 → <b>約278ha</b>（東京ドーム約59個分・IMGの114%（+35ha））<br>③ ＋山林 → <b>約618ha</b>（東京ドーム約131個分・IMGの254%（+375ha））</td></tr>
         <tr><td>位置の精度</td><td>高（Googleマップ「本別町立仙美里小学校」）</td></tr>
       </table>
       <div class="src">写真：文科省「みんなの廃校」募集一覧（2026/4/1）</div>
@@ -456,6 +566,16 @@ body.show-catalog article{background:#f5f5f7;border-color:transparent}
       <div class="num"><b>1,599㎡</b><small>校舎の延床</small></div>
       <div class="num"><b>25ha</b><small>買い足せる農地<br>（白地・1km内）</small></div>
     </div>
+    <div class="exp">
+      <div class="exp-h"><span>どこまで広げられるか（半径1km内）</span><span class="exp-img">IMG＝243ha</span></div>
+      <div class="bar"><span class="b-land" style="width:0.7%"></span><span class="b-s1" style="width:10.3%"></span><span class="b-s2" style="width:30.5%"></span><span class="b-s3" style="width:0.0%"></span><span class="imgmark" style="left:100.0%"><i></i>IMG 243ha</span></div>
+      <div class="exp-rows">
+        <div><i class="b-land"></i>校地 1.6ha（東京ドーム約0.3個分）</div>
+        <div><i class="b-s1"></i>＋白地農地 → <b>約27ha</b><small>東京ドーム約6個分・IMGの11%（−216ha）</small></div>
+        <div><i class="b-s2"></i>＋その他 → <b>約101ha</b><small>東京ドーム約21個分・IMGの41%（−142ha）</small></div>
+        <div><i class="b-s3"></i>＋山林 → <b>約101ha</b><small>東京ドーム約21個分・IMGの41%（−142ha）</small></div>
+      </div>
+    </div>
     <div class="acts"><button type="button" class="gomap" data-id="ikeda-takashima">地図で見る</button><button type="button" class="more">詳しく</button></div>
     <details class="dt"><summary>詳細</summary>
       <table>
@@ -467,6 +587,8 @@ body.show-catalog article{background:#f5f5f7;border-color:transparent}
         
         <tr><td>施設メモ</td><td>旧耐震基準（校舎はH17に耐震補強）。グラウンド使用可。国道242号から200m</td></tr>
         <tr><td>周囲1kmの農地</td><td>青地率 67.8%／最寄りの青地まで 0m<br>白地農地 25ha・青地の農地 136.3ha・市街地 0.0ha・山林 0.0ha・その他 75.8ha</td></tr>
+        <tr><td>拡張シナリオ<br>（半径1km内）</td><td>校地 1.6ha<br>① ＋白地農地 → <b>約27ha</b>（東京ドーム約6個分・IMGの11%（−216ha））<br>② ＋その他 → <b>約101ha</b>（東京ドーム約21個分・IMGの41%（−142ha））<br>③ ＋山林 → <b>約101ha</b>（東京ドーム約21個分・IMGの41%（−142ha））</td></tr>
+        <tr><td>拡張シナリオ<br>（半径2km内）</td><td>校地 1.6ha<br>① ＋白地農地 → <b>約64ha</b>（東京ドーム約14個分・IMGの27%（−179ha））<br>② ＋その他 → <b>約235ha</b>（東京ドーム約50個分・IMGの97%（−8ha））<br>③ ＋山林 → <b>約421ha</b>（東京ドーム約90個分・IMGの173%（+178ha））</td></tr>
         <tr><td>位置の精度</td><td>高（Googleマップ「池田町立高島小学校」）</td></tr>
       </table>
       <div class="src">写真：文科省「みんなの廃校」募集一覧（2026/4/1）</div>
@@ -483,6 +605,16 @@ body.show-catalog article{background:#f5f5f7;border-color:transparent}
       <div class="num"><b>1,150㎡</b><small>校舎の延床</small></div>
       <div class="num"><b>17ha</b><small>買い足せる農地<br>（白地・1km内）</small></div>
     </div>
+    <div class="exp">
+      <div class="exp-h"><span>どこまで広げられるか（半径1km内）</span><span class="exp-img">IMG＝243ha</span></div>
+      <div class="bar"><span class="b-land" style="width:0.8%"></span><span class="b-s1" style="width:7.0%"></span><span class="b-s2" style="width:10.0%"></span><span class="b-s3" style="width:3.3%"></span><span class="imgmark" style="left:100.0%"><i></i>IMG 243ha</span></div>
+      <div class="exp-rows">
+        <div><i class="b-land"></i>校地 2.0ha（東京ドーム約0.4個分）</div>
+        <div><i class="b-s1"></i>＋白地農地 → <b>約19ha</b><small>東京ドーム約4個分・IMGの8%（−224ha）</small></div>
+        <div><i class="b-s2"></i>＋その他 → <b>約43ha</b><small>東京ドーム約9個分・IMGの18%（−200ha）</small></div>
+        <div><i class="b-s3"></i>＋山林 → <b>約51ha</b><small>東京ドーム約11個分・IMGの21%（−192ha）</small></div>
+      </div>
+    </div>
     <div class="acts"><button type="button" class="gomap" data-id="shihoro-nishikami">地図で見る</button><button type="button" class="more">詳しく</button></div>
     <details class="dt"><summary>詳細</summary>
       <table>
@@ -494,6 +626,8 @@ body.show-catalog article{background:#f5f5f7;border-color:transparent}
         
         <tr><td>施設メモ</td><td>新耐震。士幌町の利活用推進補助制度あり</td></tr>
         <tr><td>周囲1kmの農地</td><td>青地率 83.7%／最寄りの青地まで 26m<br>白地農地 17ha・青地の農地 207.5ha・市街地 0.0ha・山林 8.0ha・その他 26.2ha</td></tr>
+        <tr><td>拡張シナリオ<br>（半径1km内）</td><td>校地 2.0ha<br>① ＋白地農地 → <b>約19ha</b>（東京ドーム約4個分・IMGの8%（−224ha））<br>② ＋その他 → <b>約43ha</b>（東京ドーム約9個分・IMGの18%（−200ha））<br>③ ＋山林 → <b>約51ha</b>（東京ドーム約11個分・IMGの21%（−192ha））</td></tr>
+        <tr><td>拡張シナリオ<br>（半径2km内）</td><td>校地 2.0ha<br>① ＋白地農地 → <b>約39ha</b>（東京ドーム約8個分・IMGの16%（−204ha））<br>② ＋その他 → <b>約70ha</b>（東京ドーム約15個分・IMGの29%（−172ha））<br>③ ＋山林 → <b>約122ha</b>（東京ドーム約26個分・IMGの50%（−121ha））</td></tr>
         <tr><td>位置の精度</td><td>高（OpenStreetMap「町立西上音更小学校」（国土地理院の住所検索とも0.2kmで整合））</td></tr>
       </table>
       <div class="src">写真：文科省「みんなの廃校」募集一覧（2026/4/1）</div>
@@ -510,6 +644,16 @@ body.show-catalog article{background:#f5f5f7;border-color:transparent}
       <div class="num"><b>862㎡</b><small>校舎の延床</small></div>
       <div class="num"><b>6ha</b><small>買い足せる農地<br>（白地・1km内）</small></div>
     </div>
+    <div class="exp">
+      <div class="exp-h"><span>どこまで広げられるか（半径1km内）</span><span class="exp-img">IMG＝243ha</span></div>
+      <div class="bar"><span class="b-land" style="width:2.2%"></span><span class="b-s1" style="width:2.3%"></span><span class="b-s2" style="width:17.4%"></span><span class="b-s3" style="width:40.6%"></span><span class="imgmark" style="left:100.0%"><i></i>IMG 243ha</span></div>
+      <div class="exp-rows">
+        <div><i class="b-land"></i>校地 5.3ha（東京ドーム約1.1個分）</div>
+        <div><i class="b-s1"></i>＋白地農地 → <b>約11ha</b><small>東京ドーム約2個分・IMGの4%（−232ha）</small></div>
+        <div><i class="b-s2"></i>＋その他 → <b>約53ha</b><small>東京ドーム約11個分・IMGの22%（−190ha）</small></div>
+        <div><i class="b-s3"></i>＋山林 → <b>約152ha</b><small>東京ドーム約32個分・IMGの62%（−91ha）</small></div>
+      </div>
+    </div>
     <div class="acts"><button type="button" class="gomap" data-id="kiyosato-midori">地図で見る</button><button type="button" class="more">詳しく</button></div>
     <details class="dt"><summary>詳細</summary>
       <table>
@@ -521,6 +665,8 @@ body.show-catalog article{background:#f5f5f7;border-color:transparent}
         
         <tr><td>施設メモ</td><td>一括貸付が原則。現状のまま引渡</td></tr>
         <tr><td>周囲1kmの農地</td><td>青地率 51.6%／最寄りの青地まで 73m<br>白地農地 6ha・青地の農地 106.5ha・市街地 0.0ha・山林 98.7ha・その他 47.5ha</td></tr>
+        <tr><td>拡張シナリオ<br>（半径1km内）</td><td>校地 5.3ha<br>① ＋白地農地 → <b>約11ha</b>（東京ドーム約2個分・IMGの4%（−232ha））<br>② ＋その他 → <b>約53ha</b>（東京ドーム約11個分・IMGの22%（−190ha））<br>③ ＋山林 → <b>約152ha</b>（東京ドーム約32個分・IMGの62%（−91ha））</td></tr>
+        <tr><td>拡張シナリオ<br>（半径2km内）</td><td>校地 5.3ha<br>① ＋白地農地 → <b>約43ha</b>（東京ドーム約9個分・IMGの18%（−200ha））<br>② ＋その他 → <b>約175ha</b>（東京ドーム約37個分・IMGの72%（−68ha））<br>③ ＋山林 → <b>約834ha</b>（東京ドーム約177個分・IMGの343%（+590ha））</td></tr>
         <tr><td>位置の精度</td><td>高（OpenStreetMap「緑町小学校」（国土地理院の大字検索とも1kmで整合））</td></tr>
       </table>
       <div class="src">写真：文科省「みんなの廃校」募集一覧（2026/4/1）</div>
@@ -537,6 +683,16 @@ body.show-catalog article{background:#f5f5f7;border-color:transparent}
       <div class="num"><b>1,118㎡</b><small>校舎の延床</small></div>
       <div class="num"><b>14ha</b><small>買い足せる農地<br>（白地・1km内）</small></div>
     </div>
+    <div class="exp">
+      <div class="exp-h"><span>どこまで広げられるか（半径1km内）</span><span class="exp-img">IMG＝243ha</span></div>
+      <div class="bar"><span class="b-land" style="width:0.6%"></span><span class="b-s1" style="width:5.6%"></span><span class="b-s2" style="width:1.4%"></span><span class="b-s3" style="width:7.5%"></span><span class="imgmark" style="left:100.0%"><i></i>IMG 243ha</span></div>
+      <div class="exp-rows">
+        <div><i class="b-land"></i>校地 1.3ha（東京ドーム約0.3個分）</div>
+        <div><i class="b-s1"></i>＋白地農地 → <b>約15ha</b><small>東京ドーム約3個分・IMGの6%（−228ha）</small></div>
+        <div><i class="b-s2"></i>＋その他 → <b>約18ha</b><small>東京ドーム約4個分・IMGの7%（−225ha）</small></div>
+        <div><i class="b-s3"></i>＋山林 → <b>約36ha</b><small>東京ドーム約8個分・IMGの15%（−207ha）</small></div>
+      </div>
+    </div>
     <div class="acts"><button type="button" class="gomap" data-id="shihoro-sakura">地図で見る</button><button type="button" class="more">詳しく</button></div>
     <details class="dt"><summary>詳細</summary>
       <table>
@@ -548,6 +704,8 @@ body.show-catalog article{background:#f5f5f7;border-color:transparent}
         
         <tr><td>施設メモ</td><td>新耐震。光回線あり。士幌町の利活用推進補助制度あり</td></tr>
         <tr><td>周囲1kmの農地</td><td>青地率 88.4%／最寄りの青地まで 18m<br>白地農地 14ha・青地の農地 231.5ha・市街地 0.0ha・山林 18.2ha・その他 4.7ha</td></tr>
+        <tr><td>拡張シナリオ<br>（半径1km内）</td><td>校地 1.3ha<br>① ＋白地農地 → <b>約15ha</b>（東京ドーム約3個分・IMGの6%（−228ha））<br>② ＋その他 → <b>約18ha</b>（東京ドーム約4個分・IMGの7%（−225ha））<br>③ ＋山林 → <b>約36ha</b>（東京ドーム約8個分・IMGの15%（−207ha））</td></tr>
+        <tr><td>拡張シナリオ<br>（半径2km内）</td><td>校地 1.3ha<br>① ＋白地農地 → <b>約65ha</b>（東京ドーム約14個分・IMGの27%（−178ha））<br>② ＋その他 → <b>約75ha</b>（東京ドーム約16個分・IMGの31%（−168ha））<br>③ ＋山林 → <b>約149ha</b>（東京ドーム約32個分・IMGの61%（−94ha））</td></tr>
         <tr><td>位置の精度</td><td>中（国土地理院 空中写真で校舎・体育館・教員住宅群を確認（文科省「みんなの廃校」掲載の現地写真と整合。OSMでは「上居辺小学校」表記、住所「士幌東7線」と整合））</td></tr>
       </table>
       <div class="src">写真：文科省「みんなの廃校」募集一覧（2026/4/1）</div>
@@ -564,6 +722,16 @@ body.show-catalog article{background:#f5f5f7;border-color:transparent}
       <div class="num"><b>1,839㎡</b><small>校舎の延床</small></div>
       <div class="num"><b>6ha</b><small>買い足せる農地<br>（白地・1km内）</small></div>
     </div>
+    <div class="exp">
+      <div class="exp-h"><span>どこまで広げられるか（半径1km内）</span><span class="exp-img">IMG＝243ha</span></div>
+      <div class="bar"><span class="b-land" style="width:1.6%"></span><span class="b-s1" style="width:2.6%"></span><span class="b-s2" style="width:21.6%"></span><span class="b-s3" style="width:0.0%"></span><span class="imgmark" style="left:100.0%"><i></i>IMG 243ha</span></div>
+      <div class="exp-rows">
+        <div><i class="b-land"></i>校地 3.9ha（東京ドーム約0.8個分）</div>
+        <div><i class="b-s1"></i>＋白地農地 → <b>約10ha</b><small>東京ドーム約2個分・IMGの4%（−233ha）</small></div>
+        <div><i class="b-s2"></i>＋その他 → <b>約63ha</b><small>東京ドーム約13個分・IMGの26%（−180ha）</small></div>
+        <div><i class="b-s3"></i>＋山林 → <b>約63ha</b><small>東京ドーム約13個分・IMGの26%（−180ha）</small></div>
+      </div>
+    </div>
     <div class="acts"><button type="button" class="gomap" data-id="kiyosato-kouga">地図で見る</button><button type="button" class="more">詳しく</button></div>
     <details class="dt"><summary>詳細</summary>
       <table>
@@ -575,6 +743,8 @@ body.show-catalog article{background:#f5f5f7;border-color:transparent}
         
         <tr><td>施設メモ</td><td>一括貸付が原則。現状のまま引渡</td></tr>
         <tr><td>周囲1kmの農地</td><td>青地率 80.0%／最寄りの青地まで 65m<br>白地農地 6ha・青地の農地 172.3ha・市街地 0.0ha・山林 0.0ha・その他 56.4ha</td></tr>
+        <tr><td>拡張シナリオ<br>（半径1km内）</td><td>校地 3.9ha<br>① ＋白地農地 → <b>約10ha</b>（東京ドーム約2個分・IMGの4%（−233ha））<br>② ＋その他 → <b>約63ha</b>（東京ドーム約13個分・IMGの26%（−180ha））<br>③ ＋山林 → <b>約63ha</b>（東京ドーム約13個分・IMGの26%（−180ha））</td></tr>
+        <tr><td>拡張シナリオ<br>（半径2km内）</td><td>校地 3.9ha<br>① ＋白地農地 → <b>約31ha</b>（東京ドーム約7個分・IMGの13%（−212ha））<br>② ＋その他 → <b>約109ha</b>（東京ドーム約23個分・IMGの45%（−134ha））<br>③ ＋山林 → <b>約195ha</b>（東京ドーム約41個分・IMGの80%（−48ha））</td></tr>
         <tr><td>位置の精度</td><td>高（Googleマップ「清里町立光岳小学校」）</td></tr>
       </table>
       <div class="src">写真：文科省「みんなの廃校」募集一覧（2026/4/1）</div>
@@ -591,6 +761,16 @@ body.show-catalog article{background:#f5f5f7;border-color:transparent}
       <div class="num"><b>1,816㎡</b><small>校舎の延床</small></div>
       <div class="num"><b>2ha</b><small>買い足せる農地<br>（白地・1km内）</small></div>
     </div>
+    <div class="exp">
+      <div class="exp-h"><span>どこまで広げられるか（半径1km内）</span><span class="exp-img">IMG＝243ha</span></div>
+      <div class="bar"><span class="b-land" style="width:0.6%"></span><span class="b-s1" style="width:0.8%"></span><span class="b-s2" style="width:3.4%"></span><span class="b-s3" style="width:10.8%"></span><span class="imgmark" style="left:100.0%"><i></i>IMG 243ha</span></div>
+      <div class="exp-rows">
+        <div><i class="b-land"></i>校地 1.4ha（東京ドーム約0.3個分）</div>
+        <div><i class="b-s1"></i>＋白地農地 → <b>約3ha</b><small>東京ドーム約0.7個分・IMGの1%（−240ha）</small></div>
+        <div><i class="b-s2"></i>＋その他 → <b>約12ha</b><small>東京ドーム約2個分・IMGの5%（−231ha）</small></div>
+        <div><i class="b-s3"></i>＋山林 → <b>約38ha</b><small>東京ドーム約8個分・IMGの16%（−205ha）</small></div>
+      </div>
+    </div>
     <div class="acts"><button type="button" class="gomap" data-id="shibecha-kuchoro">地図で見る</button><button type="button" class="more">詳しく</button></div>
     <details class="dt"><summary>詳細</summary>
       <table>
@@ -602,6 +782,8 @@ body.show-catalog article{background:#f5f5f7;border-color:transparent}
         
         <tr><td>施設メモ</td><td>新耐震。光回線敷設可能。現状のまま引渡</td></tr>
         <tr><td>周囲1kmの農地</td><td>青地率 87.9%／最寄りの青地まで 22m<br>白地農地 2ha・青地の農地 98.3ha・市街地 0.0ha・山林 26.2ha・その他 9.6ha</td></tr>
+        <tr><td>拡張シナリオ<br>（半径1km内）</td><td>校地 1.4ha<br>① ＋白地農地 → <b>約3ha</b>（東京ドーム約0.7個分・IMGの1%（−240ha））<br>② ＋その他 → <b>約12ha</b>（東京ドーム約2個分・IMGの5%（−231ha））<br>③ ＋山林 → <b>約38ha</b>（東京ドーム約8個分・IMGの16%（−205ha））</td></tr>
+        <tr><td>拡張シナリオ<br>（半径2km内）</td><td>校地 1.4ha<br>① ＋白地農地 → <b>約12ha</b>（東京ドーム約3個分・IMGの5%（−231ha））<br>② ＋その他 → <b>約26ha</b>（東京ドーム約6個分・IMGの11%（−216ha））<br>③ ＋山林 → <b>約431ha</b>（東京ドーム約92個分・IMGの177%（+188ha））</td></tr>
         <tr><td>位置の精度</td><td>中（Googleマップ 住所検索「標茶町クチョロ原野256」（地番レベル））</td></tr>
       </table>
       <div class="src">写真：文科省「みんなの廃校」募集一覧（2026/4/1）</div>
@@ -618,6 +800,16 @@ body.show-catalog article{background:#f5f5f7;border-color:transparent}
       <div class="num"><b>637㎡</b><small>校舎の延床</small></div>
       <div class="num"><b>1ha</b><small>買い足せる農地<br>（白地・1km内）</small></div>
     </div>
+    <div class="exp">
+      <div class="exp-h"><span>どこまで広げられるか（半径1km内）</span><span class="exp-img">IMG＝243ha</span></div>
+      <div class="bar"><span class="b-land" style="width:0.7%"></span><span class="b-s1" style="width:0.4%"></span><span class="b-s2" style="width:0.2%"></span><span class="b-s3" style="width:44.0%"></span><span class="imgmark" style="left:100.0%"><i></i>IMG 243ha</span></div>
+      <div class="exp-rows">
+        <div><i class="b-land"></i>校地 1.7ha（東京ドーム約0.4個分）</div>
+        <div><i class="b-s1"></i>＋白地農地 → <b>約3ha</b><small>東京ドーム約0.6個分・IMGの1%（−240ha）</small></div>
+        <div><i class="b-s2"></i>＋その他 → <b>約3ha</b><small>東京ドーム約0.7個分・IMGの1%（−240ha）</small></div>
+        <div><i class="b-s3"></i>＋山林 → <b>約110ha</b><small>東京ドーム約23個分・IMGの45%（−133ha）</small></div>
+      </div>
+    </div>
     <div class="acts"><button type="button" class="gomap" data-id="taki-shimo">地図で見る</button><button type="button" class="more">詳しく</button></div>
     <details class="dt"><summary>詳細</summary>
       <table>
@@ -629,6 +821,8 @@ body.show-catalog article{background:#f5f5f7;border-color:transparent}
         
         <tr><td>施設メモ</td><td>体育館・グラウンド・教員住宅も活用可</td></tr>
         <tr><td>周囲1kmの農地</td><td>青地率 64.9%／最寄りの青地まで 0m<br>白地農地 1ha・青地の農地 130.5ha・市街地 0.0ha・山林 107.0ha・その他 2.2ha</td></tr>
+        <tr><td>拡張シナリオ<br>（半径1km内）</td><td>校地 1.7ha<br>① ＋白地農地 → <b>約3ha</b>（東京ドーム約0.6個分・IMGの1%（−240ha））<br>② ＋その他 → <b>約3ha</b>（東京ドーム約0.7個分・IMGの1%（−240ha））<br>③ ＋山林 → <b>約110ha</b>（東京ドーム約23個分・IMGの45%（−133ha））</td></tr>
+        <tr><td>拡張シナリオ<br>（半径2km内）</td><td>校地 1.7ha<br>① ＋白地農地 → <b>約5ha</b>（東京ドーム約1.0個分・IMGの2%（−238ha））<br>② ＋その他 → <b>約10ha</b>（東京ドーム約2個分・IMGの4%（−233ha））<br>③ ＋山林 → <b>約488ha</b>（東京ドーム約104個分・IMGの201%（+244ha））</td></tr>
         <tr><td>位置の精度</td><td>高（国土地理院 空中写真で校舎を特定（文科省「みんなの廃校」掲載の外観写真・配置図と一致：長い平屋校舎＋体育館＋グラウンド、国道沿い、裏に山））</td></tr>
       </table>
       <div class="src">写真：文科省「みんなの廃校」募集一覧（2026/4/1）</div>
@@ -645,6 +839,16 @@ body.show-catalog article{background:#f5f5f7;border-color:transparent}
       <div class="num"><b>717㎡</b><small>校舎の延床</small></div>
       <div class="num"><b>2ha</b><small>買い足せる農地<br>（白地・1km内）</small></div>
     </div>
+    <div class="exp">
+      <div class="exp-h"><span>どこまで広げられるか（半径1km内）</span><span class="exp-img">IMG＝243ha</span></div>
+      <div class="bar"><span class="b-land" style="width:0.6%"></span><span class="b-s1" style="width:0.9%"></span><span class="b-s2" style="width:2.8%"></span><span class="b-s3" style="width:5.8%"></span><span class="imgmark" style="left:100.0%"><i></i>IMG 243ha</span></div>
+      <div class="exp-rows">
+        <div><i class="b-land"></i>校地 1.5ha（東京ドーム約0.3個分）</div>
+        <div><i class="b-s1"></i>＋白地農地 → <b>約4ha</b><small>東京ドーム約0.8個分・IMGの1%（−239ha）</small></div>
+        <div><i class="b-s2"></i>＋その他 → <b>約10ha</b><small>東京ドーム約2個分・IMGの4%（−232ha）</small></div>
+        <div><i class="b-s3"></i>＋山林 → <b>約25ha</b><small>東京ドーム約5個分・IMGの10%（−218ha）</small></div>
+      </div>
+    </div>
     <div class="acts"><button type="button" class="gomap" data-id="taki-shira">地図で見る</button><button type="button" class="more">詳しく</button></div>
     <details class="dt"><summary>詳細</summary>
       <table>
@@ -656,6 +860,8 @@ body.show-catalog article{background:#f5f5f7;border-color:transparent}
         
         <tr><td>施設メモ</td><td>体育館・グラウンドも活用可。校舎の位置は未特定</td></tr>
         <tr><td>周囲1kmの農地</td><td>青地率 92.2%／最寄りの青地まで 0m<br>白地農地 2ha・青地の農地 155.9ha・市街地 0.0ha・山林 14.1ha・その他 8.4ha</td></tr>
+        <tr><td>拡張シナリオ<br>（半径1km内）</td><td>校地 1.5ha<br>① ＋白地農地 → <b>約4ha</b>（東京ドーム約0.8個分・IMGの1%（−239ha））<br>② ＋その他 → <b>約10ha</b>（東京ドーム約2個分・IMGの4%（−232ha））<br>③ ＋山林 → <b>約25ha</b>（東京ドーム約5個分・IMGの10%（−218ha））</td></tr>
+        <tr><td>拡張シナリオ<br>（半径2km内）</td><td>校地 1.5ha<br>① ＋白地農地 → <b>約15ha</b>（東京ドーム約3個分・IMGの6%（−228ha））<br>② ＋その他 → <b>約32ha</b>（東京ドーム約7個分・IMGの13%（−211ha））<br>③ ＋山林 → <b>約368ha</b>（東京ドーム約78個分・IMGの151%（+125ha））</td></tr>
         <tr><td>位置の精度</td><td>低（Googleマップ 住所検索「滝ノ上原野10線」（線レベル））</td></tr>
       </table>
       <div class="src">写真：文科省「みんなの廃校」募集一覧（2026/4/1）</div>
@@ -672,6 +878,13 @@ body.show-catalog article{background:#f5f5f7;border-color:transparent}
       <div><span class="sw" style="background:#2e7d32"></span><b>青地の農地</b><small><b>×</b> 原則転用不可。町の農振除外が前提</small></div>
     </div>
     <p>「交渉で買える可能性がある」と言えるのは <b>白地農地・その他・山林</b>（オレンジ系）。所有者の意向は公開データにないため、各町の農業委員会に聞くのが早道です。</p>
+    <h3 style="margin-top:22px">広さの目安と「どこまで広げられるか」の読み方</h3>
+    <div class="bgrid" style="grid-template-columns:repeat(3,1fr)">
+      <div><b>東京ドーム ＝ 約4.7ha</b><small>建築面積46,755㎡。カードの「東京ドーム○個分」はこの値で割ったもの</small></div>
+      <div><b>IMGアカデミー ＝ 約243ha</b><small>米フロリダ。約600エーカー。東京ドーム約52個分。開業当初（2002年時点）は約77haで、段階的に広げてきた</small></div>
+      <div><b>半径1kmの円 ＝ 約314ha</b><small>カードの計算範囲。ここに入る土地を「校地→＋白地農地→＋その他→＋山林」の順に足し上げている</small></div>
+    </div>
+    <p style="margin-top:10px">横棒はIMG（243ha）を目盛りにした広さの比較。黒＝いまの校地、濃いオレンジ＝白地農地を足した場合、薄いオレンジ＝さらに宅地・校地など（その他）を足した場合、茶の縁＝さらに山林まで足した場合。<b>「その他」には道路・河川・他人の住宅も含むため、②③は「理論上の上限」</b>と読んでください。校地そのものが「その他」や「山林」に含まれる場合は二重に数えていません。山林は1haを超える造成に林地開発の許可が要ります。実際に買える範囲は、所有者の意向と町の姿勢で決まります。</p>
   </div>
   <div class="foot">
     「買い足せる農地」＝校舎から1km以内にある、農振の青地ではない農地（白地）の面積。農地法の許可は別途必要。校地面積・延床は文科省「みんなの廃校」募集一覧（2026年4月）と道教委「校舎概要」から。周囲の農地は国土数値情報（2015年度版・指定年次2002〜06年）＋農水省 筆ポリゴン（2025年）で算出し、eMAFF農地ナビの現行データで照合。最終判断は各町の農業委員会への確認が前提です。<br>
