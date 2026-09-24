@@ -201,6 +201,17 @@ body.show-catalog article{background:#f5f5f7;border-color:transparent}
 .cat .dt{overflow:hidden}
 .cat .dt td:first-child{color:var(--sub);width:34%}
 .cat .dt .src{font-size:11px;color:var(--sub);margin-top:8px;line-height:1.5}
+.cat .buyable{max-width:1100px;margin:40px auto 0;background:#fff;border-radius:22px;padding:22px 26px;box-shadow:0 1px 2px rgba(0,0,0,.04),0 10px 30px rgba(0,0,0,.06)}
+.cat .buyable h3{font-size:19px;margin:0 0 14px;border:none;padding:0;letter-spacing:-.01em}
+.cat .bgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.cat .bgrid > div{background:var(--bg);border-radius:14px;padding:12px 12px 10px;font-size:13px}
+.cat .bgrid b{display:block;margin:6px 0 4px;font-size:14px}
+.cat .bgrid small{display:block;color:var(--sub);font-size:12px;line-height:1.45}
+.cat .bgrid small b{display:inline;font-size:12px;margin:0}
+.cat .sw{display:inline-block;width:18px;height:18px;border-radius:5px;border:1px solid rgba(0,0,0,.15)}
+.cat .buyable p{margin:12px 0 0;font-size:13px;color:#3a3a3c}
+@media (max-width:1100px){.cat .bgrid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:700px){.cat .bgrid{grid-template-columns:1fr}.cat .buyable{padding:16px 16px}}
 .cat .foot{margin:34px auto 0;max-width:860px;color:var(--sub);font-size:12px;line-height:1.7;text-align:center}
 .cat .foot a{color:var(--blue)}
 @media (max-width:1100px){.cat .grid{grid-template-columns:repeat(2,1fr)}.cat .top3{grid-template-columns:1fr}}
@@ -651,6 +662,17 @@ body.show-catalog article{background:#f5f5f7;border-color:transparent}
     </details>
   </div>
 </div></div>
+  <div class="buyable">
+    <h3>どこが買える可能性があるか（地図の色）</h3>
+    <div class="bgrid">
+      <div><span class="sw" style="background:#ff6d00"></span><b>白地農地</b><small>農地だが青地ではない。<b>◎ 本命</b>。所有者との交渉＋農地法の転用許可で進められる</small></div>
+      <div><span class="sw" style="background:#ffcc80;border-color:#ef6c00"></span><b>その他・山林</b><small>宅地・校地・山林など。<b>○</b> 農地のルールの縛りなし。所有者次第（道路・河川は不可、山林は1ha超で林地開発許可）</small></div>
+      <div><span class="sw" style="background:#7e57c2"></span><b>市街地</b><small>用途地域の中。<b>△</b> 地権者が多く、まとまった土地は取りにくい</small></div>
+      <div><span class="sw" style="background:#a5d6a7;border-color:#2e7d32"></span><b>青地扱いだが農地ではない</b><small><b>？ 保留</b>。たぶんデータの粗さで青地ではないが、町の農振計画図で要確認</small></div>
+      <div><span class="sw" style="background:#2e7d32"></span><b>青地の農地</b><small><b>×</b> 原則転用不可。町の農振除外が前提</small></div>
+    </div>
+    <p>「交渉で買える可能性がある」と言えるのは <b>白地農地・その他・山林</b>（オレンジ系）。所有者の意向は公開データにないため、各町の農業委員会に聞くのが早道です。</p>
+  </div>
   <div class="foot">
     「買い足せる農地」＝校舎から1km以内にある、農振の青地ではない農地（白地）の面積。農地法の許可は別途必要。校地面積・延床は文科省「みんなの廃校」募集一覧（2026年4月）と道教委「校舎概要」から。周囲の農地は国土数値情報（2015年度版・指定年次2002〜06年）＋農水省 筆ポリゴン（2025年）で算出し、eMAFF農地ナビの現行データで照合。最終判断は各町の農業委員会への確認が前提です。<br>
     詳しい根拠は「検討資料」タブと調査レポート、地図は「農地マップ」タブへ。
@@ -672,7 +694,7 @@ body.show-catalog article{background:#f5f5f7;border-color:transparent}
 })();
 </script><!--CATALOG:END--></div>
 <div id="tab-map">
-<p class="memo">候補地の周辺2kmの土地を、<b>濃いオレンジ＝白地農地（買い足しの本命）</b>／紫＝市街地／茶＝山林／灰＝その他／緑＝青地（原則転用不可）に色分けしています。左の一覧でエリア絞り込み、ピンの色は優先度（赤＝高・黄＝中・灰＝低）。「データの見方」に判定ロジックと限界を記載。元データ：国土数値情報 農業地域データ（2015年度版、指定年次2002〜06年）・用途地域（2019年）・森林地域（2015年）、農水省 筆ポリゴン（2025年）。現行の農振区分は eMAFF農地ナビで照合済み（結果は調査レポート参照）。別ウィンドウで開く：<a href="map.html" target="_blank" rel="noopener">農地マップ.html</a></p>
+<p class="memo">候補地の周辺2kmの土地を、<b>濃いオレンジ＝白地農地（買い足しの本命）</b>／<b>薄いオレンジ＝所有者次第で買える可能性がある土地（その他・山林）</b>／紫＝市街地／緑＝青地（原則転用不可）に色分けしています。左の一覧でエリア絞り込み、ピンの色は優先度（赤＝高・黄＝中・灰＝低）。「データの見方」に判定ロジックと限界を記載。元データ：国土数値情報 農業地域データ（2015年度版、指定年次2002〜06年）・用途地域（2019年）・森林地域（2015年）、農水省 筆ポリゴン（2025年）。現行の農振区分は eMAFF農地ナビで照合済み（結果は調査レポート参照）。別ウィンドウで開く：<a href="map.html" target="_blank" rel="noopener">農地マップ.html</a></p>
 <!--MAP:START--><iframe srcdoc="&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;ja&quot;&gt;
 &lt;head&gt;
@@ -763,7 +785,7 @@ body.show-catalog article{background:#f5f5f7;border-color:transparent}
     &lt;div id=&quot;detail&quot;&gt;&lt;button type=&quot;button&quot; class=&quot;close&quot; aria-label=&quot;閉じる&quot;&gt;×&lt;/button&gt;&lt;div id=&quot;detailBody&quot;&gt;&lt;/div&gt;&lt;/div&gt;
     &lt;div class=&quot;note&quot;&gt;
       &lt;b style=&quot;color:var(--yochi-line)&quot;&gt;濃いオレンジ＝白地農地（買い足しの本命）&lt;/b&gt;：青地ではない農地。農地法の許可は必要だが、農振除外は不要。&lt;br&gt;
-      紫＝市街地（用途地域内）／茶＝山林（森林地域）／灰＝その他（宅地・道路・河川・校地など）／濃い緑＝青地の農地（原則転用不可）／薄い緑＝青地扱いだが農地ではない土地。薄い緑の点線＝農業振興地域。円は半径500m・1km・2km。&lt;br&gt;
+      &lt;b style=&quot;color:#ef6c00&quot;&gt;薄いオレンジ＝所有者次第で買える可能性がある土地&lt;/b&gt;（その他＝宅地・校地など／山林＝茶の縁。農地のルールの縛りなし）／紫＝市街地（用途地域内）／濃い緑＝青地の農地（原則転用不可）／薄い緑＝青地扱いだが農地ではない土地（要確認）。薄い緑の点線＝農業振興地域。円は半径500m・1km・2km。&lt;br&gt;
       ピンの色＝優先度（&lt;span class=&quot;pri 高&quot;&gt;高&lt;/span&gt; &lt;span class=&quot;pri 中&quot;&gt;中&lt;/span&gt; &lt;span class=&quot;pri&quot;&gt;低&lt;/span&gt;）。&lt;br&gt;
       出典：国土数値情報 農業地域データ A12（2015年度版。元の指定年次は2002〜2006年）。最新の指定と異なる可能性があります。候補地の位置は住所等からの概略値で、敷地境界ではありません。
     &lt;/div&gt;
@@ -775,13 +797,24 @@ body.show-catalog article{background:#f5f5f7;border-color:transparent}
         &lt;li&gt;その円から、国の地図データにある「農用地区域（青地）」を引く&lt;/li&gt;
         &lt;li&gt;残った部分がオレンジ。判定はこの引き算だけ&lt;/li&gt;
       &lt;/ol&gt;
+      &lt;h3&gt;結局どこが買えるのか（早見表）&lt;/h3&gt;
+      &lt;table class=&quot;popup&quot; style=&quot;width:100%;border-collapse:collapse;margin:4px 0 8px&quot;&gt;
+        &lt;tr&gt;&lt;th style=&quot;text-align:left;padding:3px 4px&quot;&gt;色&lt;/th&gt;&lt;th style=&quot;text-align:left;padding:3px 4px&quot;&gt;意味&lt;/th&gt;&lt;th style=&quot;text-align:left;padding:3px 4px&quot;&gt;買える可能性&lt;/th&gt;&lt;/tr&gt;
+        &lt;tr&gt;&lt;td style=&quot;padding:3px 4px&quot;&gt;&lt;span class=&quot;sw&quot; style=&quot;background:#ff6d00;border-color:#bf360c&quot;&gt;&lt;/span&gt;白地農地&lt;/td&gt;&lt;td style=&quot;padding:3px 4px&quot;&gt;農地だが青地ではない&lt;/td&gt;&lt;td style=&quot;padding:3px 4px&quot;&gt;&lt;b&gt;◎ 本命&lt;/b&gt;。所有者との交渉＋農地法の転用許可&lt;/td&gt;&lt;/tr&gt;
+        &lt;tr&gt;&lt;td style=&quot;padding:3px 4px&quot;&gt;&lt;span class=&quot;sw&quot; style=&quot;background:#ffcc80;border-color:#ef6c00&quot;&gt;&lt;/span&gt;その他&lt;/td&gt;&lt;td style=&quot;padding:3px 4px&quot;&gt;宅地・校地・道路・河川など&lt;/td&gt;&lt;td style=&quot;padding:3px 4px&quot;&gt;&lt;b&gt;○&lt;/b&gt; 農地のルールの縛りなし。所有者次第（道路・河川は不可）&lt;/td&gt;&lt;/tr&gt;
+        &lt;tr&gt;&lt;td style=&quot;padding:3px 4px&quot;&gt;&lt;span class=&quot;sw&quot; style=&quot;background:#ffcc80;border-color:#6d4c41&quot;&gt;&lt;/span&gt;山林&lt;/td&gt;&lt;td style=&quot;padding:3px 4px&quot;&gt;森林地域&lt;/td&gt;&lt;td style=&quot;padding:3px 4px&quot;&gt;&lt;b&gt;○&lt;/b&gt; 所有者次第。1ha超の造成は林地開発の許可&lt;/td&gt;&lt;/tr&gt;
+        &lt;tr&gt;&lt;td style=&quot;padding:3px 4px&quot;&gt;&lt;span class=&quot;sw&quot; style=&quot;background:#7e57c2;border-color:#4527a0&quot;&gt;&lt;/span&gt;市街地&lt;/td&gt;&lt;td style=&quot;padding:3px 4px&quot;&gt;用途地域の中&lt;/td&gt;&lt;td style=&quot;padding:3px 4px&quot;&gt;&lt;b&gt;△&lt;/b&gt; 地権者が多く、まとまった土地は取りにくい&lt;/td&gt;&lt;/tr&gt;
+        &lt;tr&gt;&lt;td style=&quot;padding:3px 4px&quot;&gt;&lt;span class=&quot;sw&quot; style=&quot;background:#a5d6a7;border-color:#2e7d32&quot;&gt;&lt;/span&gt;青地・農地以外&lt;/td&gt;&lt;td style=&quot;padding:3px 4px&quot;&gt;国のデータでは青地扱いだが農地の区画ではない&lt;/td&gt;&lt;td style=&quot;padding:3px 4px&quot;&gt;&lt;b&gt;？ 保留&lt;/b&gt;。たぶんデータの粗さで青地ではないが、町の農振計画図で要確認。本当に青地なら農振除外が必要&lt;/td&gt;&lt;/tr&gt;
+        &lt;tr&gt;&lt;td style=&quot;padding:3px 4px&quot;&gt;&lt;span class=&quot;sw&quot; style=&quot;background:#2e7d32;border-color:#1b5e20&quot;&gt;&lt;/span&gt;青地・農地&lt;/td&gt;&lt;td style=&quot;padding:3px 4px&quot;&gt;青地の農地&lt;/td&gt;&lt;td style=&quot;padding:3px 4px&quot;&gt;&lt;b&gt;×&lt;/b&gt; 原則転用不可（町の農振除外が前提）&lt;/td&gt;&lt;/tr&gt;
+      &lt;/table&gt;
+      &lt;p&gt;「交渉で買える可能性がある」と言えるのは &lt;b&gt;白地農地・その他・山林&lt;/b&gt; の3つ（オレンジ系）。いずれも所有者の意向は eMAFF農地ナビでは非公表のため、農業委員会に聞くのが早道です。&lt;/p&gt;
       &lt;h3&gt;精度向上版：土地の種類別の色分け（2026/9/24追加）&lt;/h3&gt;
       &lt;p&gt;上の「引き算」に、農水省の&lt;b&gt;筆ポリゴン&lt;/b&gt;（農地1区画ごとのデータ、2025年）、国土数値情報の&lt;b&gt;用途地域&lt;/b&gt;（2019年）と&lt;b&gt;森林地域&lt;/b&gt;（2015年）を重ねて、2km円内の土地を6種類に分けています。&lt;/p&gt;
       &lt;ul&gt;
         &lt;li&gt;&lt;b&gt;白地農地&lt;/b&gt;（濃いオレンジ）＝農地だが青地ではない。&lt;b&gt;買い足しの本命&lt;/b&gt;。農振除外は不要で、農地法の転用許可だけで進められる可能性がある&lt;/li&gt;
         &lt;li&gt;&lt;b&gt;市街地&lt;/b&gt;（紫）＝用途地域の中。農地の壁はないが、地権者が多く大区画は取りにくい&lt;/li&gt;
-        &lt;li&gt;&lt;b&gt;山林&lt;/b&gt;（茶）＝森林地域。農地法ではなく林地開発許可（森林法）の話になる&lt;/li&gt;
-        &lt;li&gt;&lt;b&gt;その他&lt;/b&gt;（灰）＝宅地・道路・河川・公共施設・校地など。農振の壁はないが、買える土地とは限らない&lt;/li&gt;
+        &lt;li&gt;&lt;b&gt;山林&lt;/b&gt;（薄いオレンジ・茶の縁）＝森林地域。農地法ではなく林地開発許可（森林法）の話になる&lt;/li&gt;
+        &lt;li&gt;&lt;b&gt;その他&lt;/b&gt;（薄いオレンジ）＝宅地・道路・河川・公共施設・校地など。農振の壁はないが、買える土地とは限らない&lt;/li&gt;
         &lt;li&gt;&lt;b&gt;青地の農地&lt;/b&gt;（濃い緑）＝原則転用不可&lt;/li&gt;
         &lt;li&gt;&lt;b&gt;青地扱いだが農地ではない&lt;/b&gt;（薄い緑）＝農振データの粗さで校地や道路まで青地に塗られている部分。実際には青地の農地ではない可能性が高い&lt;/li&gt;
       &lt;/ul&gt;
@@ -837,8 +870,8 @@ body.show-catalog article{background:#f5f5f7;border-color:transparent}
   const LU = {
     &#x27;白地農地&#x27;:      {fill:&#x27;#ff6d00&#x27;, line:&#x27;#bf360c&#x27;, op:0.6, label:&#x27;白地農地（青地ではない農地。買い足しの本命。農地法の許可は必要）&#x27;},
     &#x27;市街地&#x27;:        {fill:&#x27;#7e57c2&#x27;, line:&#x27;#4527a0&#x27;, op:0.45, label:&#x27;市街地（用途地域内。宅地買収が中心）&#x27;},
-    &#x27;山林&#x27;:          {fill:&#x27;#5d4037&#x27;, line:&#x27;#3e2723&#x27;, op:0.35, label:&#x27;山林（森林地域。林地開発の許可が要る場合あり）&#x27;},
-    &#x27;その他&#x27;:        {fill:&#x27;#bdbdbd&#x27;, line:&#x27;#9e9e9e&#x27;, op:0.35, label:&#x27;その他（宅地・道路・河川・校地など。農振の壁はない）&#x27;},
+    &#x27;山林&#x27;:          {fill:&#x27;#ffcc80&#x27;, line:&#x27;#6d4c41&#x27;, op:0.5, label:&#x27;山林（薄いオレンジ・茶の縁。所有者次第で買える可能性。1ha超の造成は林地開発許可）&#x27;},
+    &#x27;その他&#x27;:        {fill:&#x27;#ffcc80&#x27;, line:&#x27;#ef6c00&#x27;, op:0.5, label:&#x27;その他（薄いオレンジ。宅地・校地など。所有者次第で買える可能性。道路・河川は不可）&#x27;},
     &#x27;青地・農地&#x27;:    {fill:&#x27;#2e7d32&#x27;, line:&#x27;#1b5e20&#x27;, op:0.4, label:&#x27;青地の農地（原則転用不可）&#x27;},
     &#x27;青地・農地以外&#x27;:{fill:&#x27;#a5d6a7&#x27;, line:&#x27;#2e7d32&#x27;, op:0.35, label:&#x27;青地扱いだが農地ではない（データの粗さ。校地・道路など）&#x27;},
   };
