@@ -234,6 +234,9 @@
     });
     const fitAll=()=>{ const pts=data.filter(visible).map(s=>[s['緯度'],s['経度']]); if(pts.length) map.fitBounds(L.latLngBounds(pts).pad(0.15)); };
     fitAll();
+    // 検討資料のタブ内（最初は非表示の iframe）で読み込まれた場合、表示されたときにサイズを取り直して全体表示にする
+    let fitted = document.getElementById('map').clientWidth > 0;
+    new ResizeObserver(()=>{ map.invalidateSize(); if(!fitted && document.getElementById('map').clientWidth>0){ fitted=true; fitAll(); } }).observe(document.getElementById('map'));
     let current=null;
     const isMobile = ()=> window.matchMedia('(max-width:700px)').matches;
     const side=document.getElementById('side'), detail=document.getElementById('detail'), detailBody=document.getElementById('detailBody');

@@ -384,6 +384,9 @@ body.show-map #tab-map{display:block}
     });
     const fitAll=()=&gt;{ const pts=data.filter(visible).map(s=&gt;[s[&#x27;緯度&#x27;],s[&#x27;経度&#x27;]]); if(pts.length) map.fitBounds(L.latLngBounds(pts).pad(0.15)); };
     fitAll();
+    // 検討資料のタブ内（最初は非表示の iframe）で読み込まれた場合、表示されたときにサイズを取り直して全体表示にする
+    let fitted = document.getElementById(&#x27;map&#x27;).clientWidth &gt; 0;
+    new ResizeObserver(()=&gt;{ map.invalidateSize(); if(!fitted &amp;&amp; document.getElementById(&#x27;map&#x27;).clientWidth&gt;0){ fitted=true; fitAll(); } }).observe(document.getElementById(&#x27;map&#x27;));
     let current=null;
     const isMobile = ()=&gt; window.matchMedia(&#x27;(max-width:700px)&#x27;).matches;
     const side=document.getElementById(&#x27;side&#x27;), detail=document.getElementById(&#x27;detail&#x27;), detailBody=document.getElementById(&#x27;detailBody&#x27;);
