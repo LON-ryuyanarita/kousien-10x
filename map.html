@@ -68,7 +68,10 @@
     .legend.on{display:block}
     #legendToggle{display:block;position:absolute;right:12px;bottom:12px;z-index:1001;border:1px solid #666;background:#fff;border-radius:14px;padding:4px 10px;font-size:12px;box-shadow:0 1px 3px rgba(0,0,0,.2)}
     .legend.on + #legendToggle{right:auto;left:12px}
-    .popup td:first-child{white-space:nowrap}
+    .popup td:first-child:not([colspan]){white-space:nowrap}
+    #detail table{width:100%;table-layout:fixed}
+    #detail td{word-break:break-word;overflow-wrap:anywhere}
+    #detail td:first-child:not([colspan]){width:7.5em}
     .site-label{font-size:10px;padding:0 4px}
     .leaflet-popup-content{margin:10px 12px;font-size:12px;line-height:1.5}
     .leaflet-popup-content-wrapper{max-width:78vw}
