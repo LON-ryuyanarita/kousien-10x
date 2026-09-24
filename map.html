@@ -268,6 +268,10 @@
       }
       markers[i].openPopup();
     };
+    // カタログの「地図で見る」（親ページからの postMessage）や URL の #id で候補地を選ぶ
+    const selectById=(id)=>{ const k=data.findIndex(s=>s.id===id); if(k>=0){ const b=document.querySelector(`#filters button`); if(b) b.click(); select(k,true,true); } };
+    window.addEventListener('message',e=>{ if(e.data && e.data.select) selectById(e.data.select); });
+    if(location.hash.length>1) setTimeout(()=>selectById(decodeURIComponent(location.hash.slice(1))),500);
     // スマホ: 地図を触ったら一覧を畳んで地図を広く見せる
     map.on('dragstart',()=>{ if(isMobile() && !side.classList.contains('collapsed')) setSheet(true); });
     // 広域表示のときはラベルを隠して重なりを防ぐ（スマホのみ）
